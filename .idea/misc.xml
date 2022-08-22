@@ -7,6 +7,10 @@
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_invited_appointment.xml" value="0.17603850050658562" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_my_appointment.xml" value="0.17603850050658562" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_setting.xml" value="0.17603850050658562" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
       </map>
     </option>
   </component>

@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivityLoginBinding
 import com.example.hsproject.datas.BasicResponse
+import com.example.hsproject.utils.ContextUtil
+import com.example.hsproject.utils.GlobalData
 import com.google.gson.JsonObject
 import org.json.JSONObject
 import retrofit2.Call
@@ -39,8 +41,14 @@ class LoginActivity : BaseActivity() {
                     response: Response<BasicResponse>
                 ) {
                     if(response.isSuccessful){
-
                         val br = response.body()!!
+
+                        //로그인시 글로벌데이터에 앱실행하는 동안만 저장되는 변수에 user을 담아준다
+                        GlobalData.loginUser = br.data.user
+                        //로그인 화면에서 자동로그인 체크시
+                        ContextUtil.setAutoLogin(mContext, binding.autoLoginCb.isChecked)
+                        //로그인시 토큰 정보를 SharedPreferences 에 담아두고 사용한다
+                        ContextUtil.setLoginToken(mContext, br.data.token)
 
                         Toast.makeText(mContext, "${br.data.user.nickname}님 환영합니다.", Toast.LENGTH_SHORT)
 
