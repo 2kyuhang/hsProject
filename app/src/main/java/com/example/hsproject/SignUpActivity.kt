@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivitySignUpBinding
+import com.example.hsproject.datas.BasicResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : BaseActivity() {
 
     lateinit var binding : ActivitySignUpBinding
 
-    var isEmailOk = false
-    var isNickOk = false
+    var isEmailOk = true
+    var isNickOk = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +57,59 @@ class SignUpActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            //서버 연결
+            //서버 연결//부모에 있는 apiList로
+            apiList.putRequestSignUp(
+                inputEmail, inputPw, inputNick
+            ).enqueue(object : Callback<BasicResponse>{
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+                    if(response.isSuccessful){
+                        val br = response.body()!!
+                        Toast.makeText(mContext, "회원가입을 축하합니다..", Toast.LENGTH_SHORT)
+                        finish()
+                    }else {
+
+                    }
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+
+        }
+
+        binding.emailDupBtn.setOnClickListener {
+            val inputEmail = binding.emailEdt.text.toString()
+            dupCheck("EMAIL", inputEmail)
+        }
+        binding.nickDupBtn.setOnClickListener {
+            val inputNick = binding.nickEdt.text.toString()
+            dupCheck("NICK_NAME", inputNick)
         }
     }
 
     override fun setValues() {
         TODO("Not yet implemented")
     }
+
+    fun dupCheck(type : String, value : String){
+        apiList.getReguestDupCheck(type, value).enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if(response.isSuccessful){
+                    when(type){
+                        "EMAIL" -> {}
+                        "NICK_NAME" -> {}
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
 }

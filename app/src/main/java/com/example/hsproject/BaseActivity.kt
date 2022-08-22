@@ -3,9 +3,9 @@ package com.example.hsproject
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.hsproject.api.APIList
 import com.example.hsproject.api.ServerAPI
 import retrofit2.Retrofit
-import retrofit2.create
 
 abstract class BaseActivity : AppCompatActivity(){
 
