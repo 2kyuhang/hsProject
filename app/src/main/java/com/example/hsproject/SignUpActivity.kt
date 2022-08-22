@@ -75,7 +75,7 @@ class SignUpActivity : BaseActivity() {
                 }
 
                 override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
+
                 }
             })
 
@@ -92,7 +92,7 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setValues() {
-        TODO("Not yet implemented")
+
     }
 
     fun dupCheck(type : String, value : String){
@@ -107,7 +107,7 @@ class SignUpActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
     }

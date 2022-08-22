@@ -26,10 +26,11 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
-        val inputEmail = binding.emailEdt.text.toString()
-        val inputPw = binding.passwordEdt.text.toString()
-
         binding.LoginBtn.setOnClickListener {
+
+            val inputEmail = binding.emailEdt.text.toString()
+            val inputPw = binding.passwordEdt.text.toString()
+
             apiList.postRequestLogin(
                 inputEmail, inputPw
             ).enqueue(object : Callback<BasicResponse>{
