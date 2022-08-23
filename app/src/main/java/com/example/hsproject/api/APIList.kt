@@ -41,4 +41,13 @@ interface APIList {
         @Header("X-http-Token")token: String,
         @Part img: MultipartBody.Part //여기는 이미지 넣을때 이미 어떻게 넣을건지 적었기 때문!
     ):Call<BasicResponse>
+
+    @FormUrlEncoded
+    @PATCH("/user")
+    fun patchEditUserData(
+        @Header("X-http-Token")token: String,
+        @Field("field")field: String,
+        @Field("value") value: String
+    ):Call<BasicResponse>
+
 }

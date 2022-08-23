@@ -2,6 +2,7 @@ package com.example.hsproject.fragments
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -71,6 +72,31 @@ class SettingFragment : BaseFragment(){
                 .check()
 
         }
+
+        binding.nickTxt.setOnClickListener {
+
+            //알럿 창!! 경고창!!
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("닉네임 변경")
+                .show()
+
+            val inputNick = "string"
+            val token = ContextUtil.getLoginToken(mContext)
+            apiList.patchEditUserData(token, "nickname", inputNick).enqueue(object :Callback<BasicResponse>{
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                }
+
+            })
+        }
+
     }
 
     override fun setValues() {
