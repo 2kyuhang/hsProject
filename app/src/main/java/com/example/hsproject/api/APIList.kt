@@ -35,6 +35,7 @@ interface APIList {
         @Header("X-Http-Token") token : String
     ):Call<BasicResponse>
 
+    //프로필 넣기
     @Multipart //멀티파트(이미지 넣기) 쓸거니깐!
     @PUT("/user/image")
     fun putRequestUserImg(
@@ -42,6 +43,7 @@ interface APIList {
         @Part img: MultipartBody.Part //여기는 이미지 넣을때 이미 어떻게 넣을건지 적었기 때문!
     ):Call<BasicResponse>
 
+    //닉네임 변경
     @FormUrlEncoded
     @PATCH("/user")
     fun patchRequestEditUserData(
@@ -50,12 +52,19 @@ interface APIList {
         @Field("value") value: String
     ):Call<BasicResponse>
 
+    //비밀번호 변경
     @FormUrlEncoded
     @PATCH("/user/password")
     fun patchRequestChangePassword(
         @Header("X-http-Token")token: String,
         @Field("current_password")currentPw : String,
         @Field("new_password") newPw : String
+    ):Call<BasicResponse>
+
+    @GET("/user/friend")
+    fun getRequestFriendList(
+        @Header("X-http-Token")token: String,
+        @Query("type")type : String
     ):Call<BasicResponse>
 
 }

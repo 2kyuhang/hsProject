@@ -10,5 +10,6 @@ data class UserData(
     @SerializedName("nick_name")
     val nickname : String,
     @SerializedName("profile_img")
-    val profileImg : String
+    val profileImg : String,
+    val provider : String
 )
