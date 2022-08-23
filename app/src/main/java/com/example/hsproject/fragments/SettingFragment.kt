@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.example.hsproject.LoginActivity
 import com.example.hsproject.R
 import com.example.hsproject.databinding.FragmentSettingBinding
 import com.example.hsproject.datas.BasicResponse
@@ -178,6 +179,15 @@ class SettingFragment : BaseFragment(){
                 //취소버튼 선택시
                 .setNegativeButton("취소", null)
                 .show()
+        }
+
+        binding.logoutLayout.setOnClickListener{
+            ContextUtil.setLoginToken(mContext, "")//로그아웃시 토큰 지우기
+            GlobalData.loginUser = null //로그아웃시 글로벌 유저 지우기
+
+            val myIntnent = Intent(mContext, LoginActivity::class.java)
+            startActivity(myIntnent)
+            requireActivity().finishAffinity()
         }
 
     }
