@@ -38,8 +38,8 @@ interface APIList {
     //프로필 넣기
     @Multipart //멀티파트(이미지 넣기) 쓸거니깐!
     @PUT("/user/image")
-    fun putRequestUserImg(
-        @Header("X-http-Token")token: String,
+    fun putRequestUserImg(//X-Http-Token
+        @Header("X-Http-Token")token: String,
         @Part img: MultipartBody.Part //여기는 이미지 넣을때 이미 어떻게 넣을건지 적었기 때문!
     ):Call<BasicResponse>
 
@@ -47,7 +47,7 @@ interface APIList {
     @FormUrlEncoded
     @PATCH("/user")
     fun patchRequestEditUserData(
-        @Header("X-http-Token")token: String,
+        @Header("X-Http-Token")token: String,
         @Field("field")field: String,
         @Field("value") value: String
     ):Call<BasicResponse>

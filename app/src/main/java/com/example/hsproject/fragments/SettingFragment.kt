@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -190,7 +191,7 @@ class SettingFragment : BaseFragment(){
             startActivity(myIntnent)
             requireActivity().finishAffinity()
         }
-
+        //친구 목록
         binding.editMyFriendLayout.setOnClickListener {
             val myIntent = Intent(mContext, MyFriendActivity::class.java)
             startActivity(myIntent)
@@ -225,8 +226,8 @@ class SettingFragment : BaseFragment(){
 
                 //파일이 같이 첨부되는 API통신은 Multipart 형태로 모든 데이터를 첨부해야함
                 val multipartBody =
-                    MultipartBody.Part.
-                        createFormData("profile_image", "myProfile.jpg", fileReqBody)
+                    MultipartBody.Part
+                    .createFormData("profile_image", "myProfile.jpg", fileReqBody)
 
 
                 val token = ContextUtil.getLoginToken(mContext)
@@ -244,11 +245,13 @@ class SettingFragment : BaseFragment(){
                             //가져온 사진을 넣어준다 - 빠르게 사진만 TextView에 넣어주는 것//(서버에는 X)
                             Glide.with(mContext).load(selectedImgUri).into(binding.profileImg)
 
+                        }else{
+                            Toast.makeText(mContext, "프로필 사진 변경 실패", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-
+                        Log.d("문제", t.toString())
                     }
                 })
 
