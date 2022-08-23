@@ -131,6 +131,14 @@ class SettingFragment : BaseFragment(){
 
             // 뷰 만든거 변수화
             val customView = LayoutInflater.from(mContext).inflate(R.layout.custom_alert_dialog, null)
+            //뷰 수정
+            val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
+            inputEdt.visibility = View.GONE//닉네임 변경창 숨기기
+            val passwordLayout = customView.findViewById<LinearLayout>(R.id.passwordLayout)
+            passwordLayout.visibility = View.VISIBLE //비밀번호 수정 칸 보이기
+            //Edt를 변수화
+            val currentPwEdt = customView.findViewById<EditText>(R.id.currentPwEdt)
+            val newPwEdt = customView.findViewById<EditText>(R.id.newPwEdt)
 
             //토큰 가져오기
             val token = ContextUtil.getLoginToken(mContext)
@@ -142,14 +150,8 @@ class SettingFragment : BaseFragment(){
                 .setView(customView) // 뷰 넣기
                 //확인버튼 선택시
                 .setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
-                    val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
-                    inputEdt.visibility = View.GONE//닉네임 변경창 숨기기
-                    val passwordLayout = customView.findViewById<LinearLayout>(R.id.passwordLayout)
-                    passwordLayout.visibility = View.VISIBLE //비밀번호 수정 칸 보이기
 
-                    val currentPwEdt = customView.findViewById<EditText>(R.id.currentPwEdt)
                     val currentPw = currentPwEdt.text.toString()
-                    val newPwEdt = customView.findViewById<EditText>(R.id.newPwEdt)
                     val newPw = newPwEdt.text.toString()
 
 
