@@ -54,7 +54,7 @@ class SplashActivity : BaseActivity() {
 
                 //토큰값과 오토로그인이 둘다 true여야 합격
                 if (isTokenOk && isAutoLogin) {
-                    Toast.makeText(mContext, "${GlobalData.loginUser!!.nickname}님 환영합니다.", Toast.LENGTH_SHORT)
+                    Toast.makeText(mContext, "${GlobalData.loginUser!!.nickname}님 환영합니다.", Toast.LENGTH_SHORT).show()
                     var myIntent = Intent(mContext, MainActivity::class.java)
                     startActivity(myIntent)
                 } else {

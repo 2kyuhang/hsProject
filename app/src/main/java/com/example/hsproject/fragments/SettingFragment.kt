@@ -3,11 +3,14 @@ package com.example.hsproject.fragments
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -72,29 +75,107 @@ class SettingFragment : BaseFragment(){
                 .check()
 
         }
-
+        //닉네임 변경
         binding.nickTxt.setOnClickListener {
+
+            // 뷰 만든거 변수화
+            val customView = LayoutInflater.from(mContext).inflate(R.layout.custom_alert_dialog, null)
+
+            //토큰 가져오기
+            val token = ContextUtil.getLoginToken(mContext)
 
             //알럿 창!! 경고창!!
             val alert = AlertDialog.Builder(mContext)
                 .setTitle("닉네임 변경")
+                .setView(customView) // 뷰 넣기
+                    //확인버튼 선택시
+                .setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
+                    //customView 에 있는 inputEdt를 찾아와서 그 내용값을 inputNick에 담아서 서버로 전달
+
+                    //알럿창의 입력값 가져오기
+                    val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
+
+                    val inputNick = inputEdt.text.toString()
+
+                    //inputNick 변수 생성 > EditText 값을 대입(inputNick이 공백일 경우 toast전달 및 클릭 리스너 탈출)
+                        apiList.patchRequestEditUserData(token, "nickname", inputNick).enqueue(object :Callback<BasicResponse>{
+                            override fun onResponse(
+                                call: Call<BasicResponse>,
+                                response: Response<BasicResponse>
+                            ) {
+                                if(response.isSuccessful){ //200시
+                                    Toast.makeText(mContext, "닉네임이 변경되었습니다.",Toast.LENGTH_SHORT)
+                                        .show()
+                                    //글로벌에도 닉 변경한거 넣어주기
+                                    GlobalData.loginUser = response.body()!!.data.user
+                                    //TextView에 넣어주기
+                                    binding.nickTxt.text = GlobalData.loginUser!!.nickname
+                                }
+                            }
+
+                            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                            }
+
+                        })
+                })
+                    //취소버튼 선택시
+                .setNegativeButton("취소", null)
                 .show()
+        }
 
-            val inputNick = "string"
+        //시간변경
+
+        //비밀번호 변경
+        binding.changePwLayout.setOnClickListener {
+
+            // 뷰 만든거 변수화
+            val customView = LayoutInflater.from(mContext).inflate(R.layout.custom_alert_dialog, null)
+
+            //토큰 가져오기
             val token = ContextUtil.getLoginToken(mContext)
-            apiList.patchEditUserData(token, "nickname", inputNick).enqueue(object :Callback<BasicResponse>{
-                override fun onResponse(
-                    call: Call<BasicResponse>,
-                    response: Response<BasicResponse>
-                ) {
 
-                }
+            //알럿 창!! 경고창!!
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("비밀번호 변경")
+                .setMessage("비밀번호 변경을 위해서는 현재 비밀번호가 일치해야 합니다.")
+                .setView(customView) // 뷰 넣기
+                //확인버튼 선택시
+                .setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
+                    val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
+                    inputEdt.visibility = View.GONE//닉네임 변경창 숨기기
+                    val passwordLayout = customView.findViewById<LinearLayout>(R.id.passwordLayout)
+                    passwordLayout.visibility = View.VISIBLE //비밀번호 수정 칸 보이기
 
-                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                    val currentPwEdt = customView.findViewById<EditText>(R.id.currentPwEdt)
+                    val currentPw = currentPwEdt.text.toString()
+                    val newPwEdt = customView.findViewById<EditText>(R.id.newPwEdt)
+                    val newPw = newPwEdt.text.toString()
 
-                }
 
-            })
+                    apiList.patchRequestChangePassword(token, currentPw, newPw).enqueue(object :Callback<BasicResponse>{
+                        override fun onResponse(
+                            call: Call<BasicResponse>,
+                            response: Response<BasicResponse>
+                        ) {
+                            if(response.isSuccessful){ //200시
+                                Toast.makeText(mContext, "비밀번호가 변경되었습니다.",Toast.LENGTH_SHORT)
+                                    .show()
+
+                                //비밀번호 변경시 토큰이 변경되어 다시 넣어주어야 한다
+                                ContextUtil.setLoginToken(mContext, response.body()!!.data.token)
+                            }
+                        }
+
+                        override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                        }
+
+                    })
+                })
+                //취소버튼 선택시
+                .setNegativeButton("취소", null)
+                .show()
         }
 
     }
