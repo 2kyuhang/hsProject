@@ -1,6 +1,7 @@
 package com.example.hsproject.api
 
 import com.example.hsproject.datas.BasicResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -34,4 +35,10 @@ interface APIList {
         @Header("X-Http-Token") token : String
     ):Call<BasicResponse>
 
+    @Multipart //멀티파트(이미지 넣기) 쓸거니깐!
+    @PUT("/user/image")
+    fun putRequestUserImg(
+        @Header("X-http-Token")token: String,
+        @Part img: MultipartBody.Part //여기는 이미지 넣을때 이미 어떻게 넣을건지 적었기 때문!
+    ):Call<BasicResponse>
 }
