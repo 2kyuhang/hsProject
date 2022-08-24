@@ -57,7 +57,7 @@ class SerchUserRecycleViewAdapter(val mContext : Context, val mList : List<UserD
 
                 val token = ContextUtil.getLoginToken(mContext)
 
-                apiList.postRequestAddFriend(token, item.id).enqueue(object : Callback<BasicResponse>{
+                apiList.postRequestAddFriend(item.id).enqueue(object : Callback<BasicResponse>{
                     override fun onResponse(
                         call: Call<BasicResponse>,
                         response: Response<BasicResponse>

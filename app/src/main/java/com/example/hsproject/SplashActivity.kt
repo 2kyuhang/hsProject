@@ -27,7 +27,7 @@ class SplashActivity : BaseActivity() {
 
     override fun setupEvents() {
         val token = ContextUtil.getLoginToken(mContext)
-        apiList.getRequestMyInfo(token).enqueue(object : Callback<BasicResponse>{
+        apiList.getRequestMyInfo().enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 //SharedPreferences 가 가지고 있는 토큰값이 유효하면!!!
                 if(response.isSuccessful){

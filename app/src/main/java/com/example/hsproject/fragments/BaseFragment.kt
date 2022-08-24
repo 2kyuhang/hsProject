@@ -18,7 +18,7 @@ abstract class BaseFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mContext = requireContext()
-        retrofit = ServerAPI.getRetrofit()
+        retrofit = ServerAPI.getRetrofit(mContext)
         apiList = retrofit.create(APIList::class.java)
     }
 

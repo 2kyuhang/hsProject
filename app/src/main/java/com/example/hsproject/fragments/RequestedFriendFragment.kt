@@ -49,7 +49,7 @@ class RequestedFriendFragment  : BaseFragment(){
 
     fun getRequestFriendListFromServer(){
         val token = ContextUtil.getLoginToken(mContext)
-        apiList.getRequestFriendList(token, "request").enqueue(object : Callback<BasicResponse>{
+        apiList.getRequestFriendList("request").enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if(response.isSuccessful){
                     val br = response.body()!! //나에게 칝구추가한 유저들 들어 있다

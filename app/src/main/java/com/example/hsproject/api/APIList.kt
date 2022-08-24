@@ -32,14 +32,12 @@ interface APIList {
     //토큰으로 회원정보 불러오기
     @GET("/user")
     fun getRequestMyInfo(
-        @Header("X-Http-Token") token : String
     ):Call<BasicResponse>
 
     //프로필 넣기
     @Multipart //멀티파트(이미지 넣기) 쓸거니깐!
     @PUT("/user/image")
     fun putRequestUserImg(//X-Http-Token
-        @Header("X-Http-Token")token: String,
         @Part img: MultipartBody.Part //여기는 이미지 넣을때 이미 어떻게 넣을건지 적었기 때문!
     ):Call<BasicResponse>
 
@@ -47,7 +45,6 @@ interface APIList {
     @FormUrlEncoded
     @PATCH("/user")
     fun patchRequestEditUserData(
-        @Header("X-Http-Token")token: String,
         @Field("field")field: String,
         @Field("value") value: String
     ):Call<BasicResponse>
@@ -56,7 +53,6 @@ interface APIList {
     @FormUrlEncoded
     @PATCH("/user/password")
     fun patchRequestChangePassword(
-        @Header("X-Http-Token")token: String,
         @Field("current_password")currentPw : String,
         @Field("new_password") newPw : String
     ):Call<BasicResponse>
@@ -64,14 +60,12 @@ interface APIList {
     //친구목록가져오기
     @GET("/user/friend")
     fun getRequestFriendList(
-        @Header("X-Http-Token")token: String,
         @Query("type")type : String
     ):Call<BasicResponse>
 
     //친구목록가져오기
     @GET("/search/user")
     fun getRequestSerchUser(
-        @Header("X-Http-Token")token: String,
         @Query("nickname")nickname : String
     ):Call<BasicResponse>
 
@@ -79,15 +73,13 @@ interface APIList {
     @FormUrlEncoded //폼데이터 활용하고 있다
     @POST("/user/friend")
     fun postRequestAddFriend(
-        @Header("X-Http-Token") token : String,
         @Field("user_id")id : Int
     ) : Call<BasicResponse>
 
     @PUT("/user/friend")
     fun putRequestAddFriend(
-        @Header("X-Http-Token") token : String,
         @Field("user_id")id : Int,
-        @Field("type")type : String
+        @Field("type")type:String
     ) : Call<BasicResponse>
 
 }

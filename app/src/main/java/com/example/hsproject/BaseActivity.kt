@@ -17,7 +17,7 @@ abstract class BaseActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
-        retrofit = ServerAPI.getRetrofit() //싱글톤 만든거 가져오기
+        retrofit = ServerAPI.getRetrofit(mContext) //싱글톤 만든거 가져오기
         apiList = retrofit.create(APIList::class.java)//레트로핏으로 생성할거에요!!
     }
 

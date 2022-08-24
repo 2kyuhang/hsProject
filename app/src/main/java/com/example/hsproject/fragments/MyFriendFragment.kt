@@ -56,7 +56,7 @@ class MyFriendFragment  : BaseFragment(){
     //서버에서 정보 가져와서 mFriendList에 넣기
     fun getFriendDataFromServer(){
         val token = ContextUtil.getLoginToken(mContext)
-        apiList.getRequestFriendList(token, "my").enqueue(object :Callback<BasicResponse>{
+        apiList.getRequestFriendList("my").enqueue(object :Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if(response.isSuccessful){
                     //데이터 중복 방지를 위한 정리? 클리어

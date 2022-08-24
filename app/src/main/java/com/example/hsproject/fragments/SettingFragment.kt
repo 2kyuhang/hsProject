@@ -101,7 +101,7 @@ class SettingFragment : BaseFragment(){
                     val inputNick = inputEdt.text.toString()
 
                     //inputNick 변수 생성 > EditText 값을 대입(inputNick이 공백일 경우 toast전달 및 클릭 리스너 탈출)
-                        apiList.patchRequestEditUserData(token, "nickname", inputNick).enqueue(object :Callback<BasicResponse>{
+                        apiList.patchRequestEditUserData("nickname", inputNick).enqueue(object :Callback<BasicResponse>{
                             override fun onResponse(
                                 call: Call<BasicResponse>,
                                 response: Response<BasicResponse>
@@ -158,7 +158,7 @@ class SettingFragment : BaseFragment(){
                     val newPw = newPwEdt.text.toString()
 
 
-                    apiList.patchRequestChangePassword(token, currentPw, newPw).enqueue(object :Callback<BasicResponse>{
+                    apiList.patchRequestChangePassword(currentPw, newPw).enqueue(object :Callback<BasicResponse>{
                         override fun onResponse(
                             call: Call<BasicResponse>,
                             response: Response<BasicResponse>
@@ -232,7 +232,7 @@ class SettingFragment : BaseFragment(){
 
                 val token = ContextUtil.getLoginToken(mContext)
                 apiList.putRequestUserImg(
-                    token, multipartBody
+                    multipartBody
                 ).enqueue(object  : Callback<BasicResponse>{
                     override fun onResponse(
                         call: Call<BasicResponse>,
