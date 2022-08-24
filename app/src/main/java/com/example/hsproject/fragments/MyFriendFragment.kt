@@ -47,7 +47,7 @@ class MyFriendFragment  : BaseFragment(){
     }
 
     override fun setValues() {
-        mFriendAdapter = FriendRecycleViewAdapter(mContext, mFriendsList)
+        mFriendAdapter = FriendRecycleViewAdapter(mContext, mFriendsList, "my")
         binding.myFriendRecyclerView.adapter = mFriendAdapter
         binding.myFriendRecyclerView.layoutManager = LinearLayoutManager(mContext)
         getFriendDataFromServer()//서버에서 정보 가져와서 mFriendList에 넣기

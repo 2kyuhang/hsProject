@@ -83,4 +83,11 @@ interface APIList {
         @Field("user_id")id : Int
     ) : Call<BasicResponse>
 
+    @PUT("/user/friend")
+    fun putRequestAddFriend(
+        @Header("X-Http-Token") token : String,
+        @Field("user_id")id : Int,
+        @Field("type")type : String
+    ) : Call<BasicResponse>
+
 }
