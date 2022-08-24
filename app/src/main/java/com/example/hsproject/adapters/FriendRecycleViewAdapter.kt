@@ -17,9 +17,10 @@ class FriendRecycleViewAdapter(val mContext : Context, val mList : List<UserData
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
         fun bind(item : UserData){
 
-            val profileImg = itemView.findViewById<ImageView>(R.id.nickTxt)
+            val profileImg = itemView.findViewById<ImageView>(R.id.profileImg)
             val nickTxt = itemView.findViewById<TextView>(R.id.nickTxt)
             val emailTxt = itemView.findViewById<TextView>(R.id.emailTxt)
+
 
             Glide.with(mContext).load(item.profileImg).into(profileImg)
             nickTxt.text = item.nickname

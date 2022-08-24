@@ -4,17 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_base.xml" value="0.1" />
-        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_my_friend.xml" value="0.17603850050658562" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_my_friend.xml" value="0.1" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_serch_user.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/custom_alert_dialog.xml" value="0.1279128672745694" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_invited_appointment.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_my_appointment.xml" value="0.17603850050658562" />
-        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_my_friends.xml" value="0.1451545530492899" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_my_friends.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_requested_friends.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
-        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/friend_list_item.xml" value="0.17603850050658562" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/friend_list_item.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
       </map>
     </option>

@@ -1,5 +1,6 @@
 package com.example.hsproject.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hsproject.R
+import com.example.hsproject.SearchUserActivity
 import com.example.hsproject.adapters.FriendRecycleViewAdapter
 import com.example.hsproject.databinding.FragmentMyFriendsBinding
 import com.example.hsproject.datas.BasicResponse
@@ -38,7 +40,10 @@ class MyFriendFragment  : BaseFragment(){
     }
 
     override fun setEvent() {
-
+        binding.addFriendBtn.setOnClickListener {
+            val myIntent = Intent(mContext, SearchUserActivity::class.java)
+            startActivity(myIntent)
+        }
     }
 
     override fun setValues() {

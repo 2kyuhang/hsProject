@@ -37,7 +37,7 @@ class SplashActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -51,6 +51,7 @@ class SplashActivity : BaseActivity() {
 
                 //ContextUtil 에서 SharedPreferences 통해 저장해둔 자동로그인 값을 가져온다
                 val isAutoLogin = ContextUtil.getAutoLogin(mContext)
+
 
                 //토큰값과 오토로그인이 둘다 true여야 합격
                 if (isTokenOk && isAutoLogin) {

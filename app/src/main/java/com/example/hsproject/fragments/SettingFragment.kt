@@ -211,7 +211,7 @@ class SettingFragment : BaseFragment(){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) { //
             if (requestCode == REQU_FOR_GALLARY) {
 
                 //data? 가 선택된 사진을 가지고 있다다

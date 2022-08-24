@@ -50,6 +50,8 @@ class LoginActivity : BaseActivity() {
                         //로그인시 토큰 정보를 SharedPreferences 에 담아두고 사용한다
                         ContextUtil.setLoginToken(mContext, br.data.token)
 
+                        Log.d("문제", "${binding.autoLoginCb.isChecked} ${br.data.token}")
+
                         Toast.makeText(mContext, "${br.data.user.nickname}님 환영합니다.", Toast.LENGTH_SHORT).show()
 
                         val myIntent = Intent(mContext, MainActivity::class.java)

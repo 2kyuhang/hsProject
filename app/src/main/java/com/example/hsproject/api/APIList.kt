@@ -56,15 +56,31 @@ interface APIList {
     @FormUrlEncoded
     @PATCH("/user/password")
     fun patchRequestChangePassword(
-        @Header("X-http-Token")token: String,
+        @Header("X-Http-Token")token: String,
         @Field("current_password")currentPw : String,
         @Field("new_password") newPw : String
     ):Call<BasicResponse>
 
+    //친구목록가져오기
     @GET("/user/friend")
     fun getRequestFriendList(
-        @Header("X-http-Token")token: String,
+        @Header("X-Http-Token")token: String,
         @Query("type")type : String
     ):Call<BasicResponse>
+
+    //친구목록가져오기
+    @GET("/search/user")
+    fun getRequestSerchUser(
+        @Header("X-Http-Token")token: String,
+        @Query("nickname")nickname : String
+    ):Call<BasicResponse>
+
+    //친구요청
+    @FormUrlEncoded //폼데이터 활용하고 있다
+    @POST("/user/friend")
+    fun postRequestAddFriend(
+        @Header("X-Http-Token") token : String,
+        @Field("user_id")id : Int
+    ) : Call<BasicResponse>
 
 }
