@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp"
+    android:gravity="center_vertical"
+    >
+
+    <TextView
+        android:id="@+id/myPlaceTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="출발장소 이름"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/primaryTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ff0000"
+        android:layout_marginStart="10dp"
+        android:text="기본"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:padding="12dp"/>
+
+</LinearLayout>

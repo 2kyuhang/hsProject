@@ -76,10 +76,15 @@ interface APIList {
         @Field("user_id")id : Int
     ) : Call<BasicResponse>
 
+    //친구 요청 수락/거절
+    @FormUrlEncoded
     @PUT("/user/friend")
     fun putRequestAddFriend(
         @Field("user_id")id : Int,
         @Field("type")type:String
     ) : Call<BasicResponse>
+
+    @GET("/user/place")
+    fun getRequestUserPlace():Call<BasicResponse>
 
 }

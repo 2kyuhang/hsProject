@@ -1,6 +1,7 @@
 package com.example.hsproject.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,16 +46,18 @@ class RequestedFriendFragment  : BaseFragment(){
         mFriendAdapter = FriendRecycleViewAdapter(mContext, mFriendList, "request")
         binding.friendRecycleView.adapter = mFriendAdapter
         binding.friendRecycleView.layoutManager = LinearLayoutManager(mContext)
+
+        getRequestFriendListFromServer()
     }
 
     fun getRequestFriendListFromServer(){
-        val token = ContextUtil.getLoginToken(mContext)
-        apiList.getRequestFriendList("request").enqueue(object : Callback<BasicResponse>{
+        apiList.getRequestFriendList("requested").enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if(response.isSuccessful){
                     val br = response.body()!! //나에게 칝구추가한 유저들 들어 있다
 
                     mFriendList.clear()
+                    //Log.d("친구 요청받은 목록", "${br.data.friends}")
                     mFriendList.addAll(br.data.friends)//friends로 나에게 친추한 유저 들어있음
                     mFriendAdapter.notifyDataSetChanged()//정보 업뎃했으니 새로고침 해주세요
                 }

@@ -53,7 +53,7 @@ class MyFriendFragment  : BaseFragment(){
         getFriendDataFromServer()//서버에서 정보 가져와서 mFriendList에 넣기
     }
 
-    //서버에서 정보 가져와서 mFriendList에 넣기
+    //서버에서 정보 가져와서 mFriendList에 넣기 //새로고침용으로도 사용
     fun getFriendDataFromServer(){
         val token = ContextUtil.getLoginToken(mContext)
         apiList.getRequestFriendList("my").enqueue(object :Callback<BasicResponse>{

@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_add_my_place.xml" value="0.10587639311043566" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_base.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_my_friend.xml" value="0.1" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_my_place.xml" value="0.10536980749746708" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_serch_user.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/custom_alert_dialog.xml" value="0.1279128672745694" />
@@ -16,6 +18,7 @@
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_requested_friends.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/friend_list_item.xml" value="0.1" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/place_list_item.xml" value="0.10764944275582573" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
       </map>
     </option>

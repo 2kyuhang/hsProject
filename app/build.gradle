@@ -65,4 +65,6 @@ dependencies {
     //    TedPermission
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
 
+    //네이버 지도
+    implementation 'com.naver.maps:map-sdk:3.15.0'
 }
