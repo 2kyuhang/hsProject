@@ -6,6 +6,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivityAddAppointmentBinding
 import com.example.hsproject.datas.BasicResponse
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.MapFragment
+import com.naver.maps.map.overlay.Marker
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,6 +17,9 @@ import retrofit2.Response
 class AddAppointmentActivity : BaseActivity() {
 
     lateinit var binding : ActivityAddAppointmentBinding
+
+    //네이버 지도 좌표
+    var mSelectedLatLng : LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +50,18 @@ class AddAppointmentActivity : BaseActivity() {
                 Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }*/
-            //약속 장소명
+            //약속 장소 이름/명
             val inputPlaceName = binding.placeNameEdt.text.toString()
             if(inputPlaceName.isBlank()){
                 Toast.makeText(mContext, "약속 장소명을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            //약송 장소 좌표
+            if(mSelectedLatLng == null){
+                Toast.makeText(mContext, "약속 장소를 지도에서 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             //실제 도착 지점을 선택했는가? 네이버 지도
 /*            apiList.postRequestAddAppointment(
                 inputTitle, inputPlaceName,
@@ -73,5 +85,26 @@ class AddAppointmentActivity : BaseActivity() {
     override fun setValues() {
         titleTxt.text = "새 약속 만들기"
         backIcon.visibility = View.VISIBLE
+
+        //지도객체
+        val fm = supportFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id.map, it).commit()
+            }
+
+        mapFragment.getMapAsync {
+
+            val naverMap = it
+            val marker = Marker()
+
+            naverMap.setOnMapClickListener { pointF, latLng ->
+                mSelectedLatLng = latLng//내가 사용할 변수에 좌표 담기
+                marker.position = latLng//마커 좌표 알려주기
+                marker.map = naverMap//마커를 네이버 지도에 올리기
+            }
+
+        }
+
     }
 }
