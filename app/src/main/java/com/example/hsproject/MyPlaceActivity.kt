@@ -1,5 +1,6 @@
 package com.example.hsproject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -25,8 +26,16 @@ class MyPlaceActivity : BaseActivity() {
         setValues()
     }
 
-    override fun setupEvents() {
+    override fun onResume(){ //화면이 다시 보여지게 되면
+        super.onResume()
+        getPlaceListFromServer()//정보 업데이트
+    }
 
+    override fun setupEvents() {
+        binding.addPlaceBtn.setOnClickListener {
+            var myIntent = Intent(mContext, AddMyPlaceActivity::class.java)
+            startActivity(myIntent)
+        }
     }
 
     override fun setValues() {
@@ -49,7 +58,7 @@ class MyPlaceActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })

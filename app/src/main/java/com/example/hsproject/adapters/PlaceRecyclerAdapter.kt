@@ -1,11 +1,13 @@
 package com.example.hsproject.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hsproject.MyPlaceDetailActivity
 import com.example.hsproject.R
 import com.example.hsproject.datas.PlaceData
 
@@ -22,6 +24,13 @@ class PlaceRecyclerAdapter(
             if(item.isPrimary){
                 primaryTxt.visibility = View.VISIBLE
             }
+
+            itemView.setOnClickListener {
+                val myIntent = Intent(mContext, MyPlaceDetailActivity::class.java)
+                myIntent.putExtra("placeData", item)
+                mContext.startActivity(myIntent)
+            }
+
         }
     }
 

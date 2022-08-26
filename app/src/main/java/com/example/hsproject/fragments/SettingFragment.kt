@@ -15,9 +15,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
-import com.example.hsproject.LoginActivity
-import com.example.hsproject.MyFriendActivity
-import com.example.hsproject.R
+import com.example.hsproject.*
 import com.example.hsproject.databinding.FragmentSettingBinding
 import com.example.hsproject.datas.BasicResponse
 import com.example.hsproject.utils.ContextUtil
@@ -194,6 +192,12 @@ class SettingFragment : BaseFragment(){
         //친구 목록
         binding.editMyFriendLayout.setOnClickListener {
             val myIntent = Intent(mContext, MyFriendActivity::class.java)
+            startActivity(myIntent)
+        }
+
+        //장소관리
+        binding.editMyPlaceLayout.setOnClickListener {
+            val myIntent = Intent(mContext, MyPlaceActivity::class.java)
             startActivity(myIntent)
         }
 
