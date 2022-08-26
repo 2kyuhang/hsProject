@@ -1,6 +1,8 @@
 package com.example.hsproject
 
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hsproject.adapters.MainViewPagerAdapter
@@ -50,7 +52,23 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+        setCustomActivityBar()
+
         mPageAdapter = MainViewPagerAdapter(this) //여기에 어답타 붙이고
         binding.mainViewPager.adapter = mPageAdapter //연결하면 여기에 프레그먼트들이 붙음
+    }
+
+    fun setCustomActivityBar(){
+        //기존 액션바를 담아줄 변수
+        val defaultActionBar = supportActionBar!! // <=안드로이드에서제공하는 기본 액션바
+
+
+        //기존 액션바를 커스텀 모드로 변경 > 우리가 만든 xml로 변경
+        defaultActionBar.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM//안드로이드 X에서 주는걸로 선택하기
+        defaultActionBar.setCustomView(R.layout.custom_action_bar)
+
+        //부모 액션바
+        val myToolbar = defaultActionBar.customView.parent as Toolbar //안드로이드 X에서 제공하는 툴바(가 부모다)
+        myToolbar.setContentInsetsAbsolute(0, 0)//부모 액션바 여백 0, 0으로!
     }
 }
