@@ -61,7 +61,7 @@ class AddMyPlaceActivity : BaseActivity() {
 
     override fun setValues() {
 
-        addIcon.visibility = View.VISIBLE
+        backIcon.visibility = View.VISIBLE
 
         //지도객체
         val fm = supportFragmentManager
