@@ -3,6 +3,7 @@ package com.example.hsproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hsproject.adapters.PlaceRecyclerAdapter
@@ -32,13 +33,21 @@ class MyPlaceActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
-        binding.addPlaceBtn.setOnClickListener {
+/*        binding.addPlaceBtn.setOnClickListener {
+            var myIntent = Intent(mContext, AddMyPlaceActivity::class.java)
+            startActivity(myIntent)
+        }*/
+        addIcon.setOnClickListener {
             var myIntent = Intent(mContext, AddMyPlaceActivity::class.java)
             startActivity(myIntent)
         }
     }
 
     override fun setValues() {
+        //장소 추가버튼 지우고 액션바에 만듬
+        addIcon.visibility = View.VISIBLE
+        backIcon.visibility = View.VISIBLE
+
         mPlaceAdapter = PlaceRecyclerAdapter(mContext, mPlaceList)
         binding.placeRecyclerView.adapter = mPlaceAdapter
         binding.placeRecyclerView.layoutManager = LinearLayoutManager(mContext)

@@ -6,10 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hsproject.MyPlaceActivity
 import com.example.hsproject.MyPlaceDetailActivity
 import com.example.hsproject.R
+import com.example.hsproject.datas.BasicResponse
 import com.example.hsproject.datas.PlaceData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PlaceRecyclerAdapter(
     val mContext : Context, val mList : List<PlaceData>
@@ -30,6 +36,46 @@ class PlaceRecyclerAdapter(
                 myIntent.putExtra("placeData", item)
                 mContext.startActivity(myIntent)
             }
+
+
+            //
+            itemView.setOnClickListener {
+/*                //어답터에서는 액티비티에서 받아와야 서버 연결 가능
+                (mContext as MyPlaceActivity).apiList
+                    .patchRequestEditPlace(
+                        item.id
+                    )
+                    .enqueue(object : Callback<BasicResponse>{
+                        override fun onResponse(
+                            call: Call<BasicResponse>,
+                            response: Response<BasicResponse>
+                        ) {
+                            Toast.makeText(mContext,"기본 출발 장소가 변경되었습니다", Toast.LENGTH_SHORT).show()
+                            mContext.getPlaceListFromServer()//어답터를 포함한 액티비티의 정보 새로고침
+                        }
+
+                        override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                        }
+
+                    })*/
+                (mContext as MyPlaceActivity).apiList
+                    .deleteRequestEditPlace(item.id)
+                    .enqueue(object : Callback<BasicResponse>{
+                        override fun onResponse(
+                            call: Call<BasicResponse>,
+                            response: Response<BasicResponse>
+                        ) {
+                            Toast.makeText(mContext,"해당 출발 장소가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                            mContext.getPlaceListFromServer()//어답터를 포함한 액티비티의 정보 새로고침
+                        }
+
+                        override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                        }
+                    })
+            }
+
 
         }
     }

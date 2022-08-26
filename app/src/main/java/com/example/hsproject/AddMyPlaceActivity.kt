@@ -3,6 +3,7 @@ package com.example.hsproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivityAddMyPlaceBinding
@@ -59,6 +60,9 @@ class AddMyPlaceActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        addIcon.visibility = View.VISIBLE
+
         //지도객체
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
@@ -92,9 +96,9 @@ class AddMyPlaceActivity : BaseActivity() {
                 marker.map = naverMap
 
 /*              클릭시 마커 생겨남*/
-                val newMarker = Marker()
+/*                val newMarker = Marker()
                 newMarker.position = latLng
-                newMarker.map = naverMap
+                newMarker.map = naverMap*/
 
                 mSelectedLatitude = latLng.latitude
                 mSelectedLongitude = latLng.longitude

@@ -84,9 +84,11 @@ interface APIList {
         @Field("type")type:String
     ) : Call<BasicResponse>
 
+    //출발장소
     @GET("/user/place")
     fun getRequestUserPlace():Call<BasicResponse>
 
+    //출발장소 추가
     @FormUrlEncoded
     @POST("/user/place")
     fun getRequestAddUserPlace(
@@ -95,5 +97,19 @@ interface APIList {
         @Field("longitude") longitude : Double,
         @Field("is_primary")isPrimary: String
     ):Call<BasicResponse>
+
+    //나의 기본 출발장소로 지정
+    @FormUrlEncoded
+    @PATCH("/user/place")
+    fun patchRequestEditPlace(
+        @Field("place_id")id : Int
+    ):Call<BasicResponse>
+
+    //내 출발장소 삭제
+    @DELETE("/user/place")
+    fun deleteRequestEditPlace(
+        @Field("place_id")id : Int
+    ):Call<BasicResponse>
+
 
 }

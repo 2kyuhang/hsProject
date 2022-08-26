@@ -15,14 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <Button
+<!--        <Button
             android:id="@+id/addPlaceBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="출발 장소 추가"
             android:layout_gravity="bottom|end"
             android:layout_margin="20dp"
-            />
+            />-->
 
 
     </FrameLayout>
