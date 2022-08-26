@@ -1,7 +1,9 @@
 package com.example.hsproject
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.adapters.FriendPager2Adapter
 import com.example.hsproject.adapters.FriendPagerAdapter
@@ -23,11 +25,17 @@ class MyFriendActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
-
+        addIcon.setOnClickListener {
+            val myIntent = Intent(mContext, SearchUserActivity::class.java)
+            startActivity(myIntent)
+        }
     }
 
     //여기서 친구 목록과 요청받은 목록 프레그먼트 받는다
     override fun setValues() {
+        backIcon.visibility = View.VISIBLE
+        addIcon.visibility = View.VISIBLE
+
         mPagerAdapter = FriendPager2Adapter(this)
         binding.friendViewPager.adapter = mPagerAdapter
         //binding.friendTabLayout.setupWithViewPager(binding.friendViewPager)

@@ -3,6 +3,7 @@ package com.example.hsproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,9 +35,13 @@ class SearchUserActivity : BaseActivity() {
             val inputNick = binding.serchEdt.text.toString()
             searchUserFromServer(inputNick)
         }
+        backIcon.setOnClickListener {
+            finish()
+        }
     }
 
     override fun setValues() {
+        backIcon.visibility = View.VISIBLE
         mUserAdapter = SerchUserRecycleViewAdapter(mContext, mUserList)
         binding.serchUserRecyclerView.adapter = mUserAdapter
         binding.serchUserRecyclerView.layoutManager = LinearLayoutManager(mContext)

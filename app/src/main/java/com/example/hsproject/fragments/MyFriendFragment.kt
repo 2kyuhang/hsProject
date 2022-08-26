@@ -40,13 +40,16 @@ class MyFriendFragment  : BaseFragment(){
     }
 
     override fun setEvent() {
-        binding.addFriendBtn.setOnClickListener {
+        //MyFriendActivity
+        /*binding.addFriendBtn.setOnClickListener {
             val myIntent = Intent(mContext, SearchUserActivity::class.java)
             startActivity(myIntent)
-        }
+        }*/
     }
 
     override fun setValues() {
+
+
         mFriendAdapter = FriendRecycleViewAdapter(mContext, mFriendsList, "my")
         binding.myFriendRecyclerView.adapter = mFriendAdapter
         binding.myFriendRecyclerView.layoutManager = LinearLayoutManager(mContext)

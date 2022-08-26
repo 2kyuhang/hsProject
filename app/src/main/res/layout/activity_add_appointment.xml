@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddAppointmentActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="약속 제목"/>
+
+            <EditText
+                android:id="@+id/titleEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="약속 제목 입력"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:maxLines="1"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="약속 일시"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dataTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_rentangle_r8"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:text="날짜 선택"/>
+
+                <TextView
+                    android:id="@+id/timeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_rentangle_r8"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:text="시간 선택"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dateTimeInfoTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="일자 및 시간을 선택해주세요."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="약속 장소"/>
+
+            <EditText
+                android:id="@+id/placeNameEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="약속 장소 이름 입력"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:maxLines="1"/>
+
+            <fragment
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginVertical="10dp"
+                android:name="com.naver.maps.map.MapFragment"/>
+                />
+
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="약속 등록하기"/>
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

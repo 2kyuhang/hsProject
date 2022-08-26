@@ -46,8 +46,8 @@ class PlaceRecyclerAdapter(
                 //알럿 창!! 경고창!!
                 val alert = AlertDialog.Builder(mContext)
                     .setTitle("기본 출발장소 변경 / 삭제")
-                    //확인버튼 선택시
-                    .setPositiveButton("변경", DialogInterface.OnClickListener { dialogInterface, i ->
+                    //삭제 버튼 클릭시 setNeutralButton
+                    .setNeutralButton("변경",DialogInterface.OnClickListener { dialogInterface, i ->
                         //어답터에서는 액티비티에서 받아와야 서버 연결 가능
                         (mContext as MyPlaceActivity).apiList
                             .patchRequestEditPlace(
@@ -72,8 +72,8 @@ class PlaceRecyclerAdapter(
 
                             })
                     })
-                    //삭제 버튼 클릭시
-                    .setNegativeButton("삭제", DialogInterface.OnClickListener { dialogInterface, i ->
+                        //삭제 버튼
+                    .setPositiveButton("삭제", DialogInterface.OnClickListener { dialogInterface, i ->
                         (mContext as MyPlaceActivity).apiList
                             .deleteRequestEditPlace(item.id)
                             .enqueue(object : Callback<BasicResponse> {
@@ -95,9 +95,9 @@ class PlaceRecyclerAdapter(
 
                                 }
                             })
-
-
                     })
+                    //취소버튼
+                    .setNegativeButton("취소", null)
                     .show()
 
 /*                */

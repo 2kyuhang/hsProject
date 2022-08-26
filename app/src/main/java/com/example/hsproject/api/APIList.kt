@@ -108,8 +108,18 @@ interface APIList {
     //내 출발장소 삭제
     @DELETE("/user/place")
     fun deleteRequestEditPlace(
-        @Field("place_id")id : Int
+        @Query("place_id")id : Int
     ):Call<BasicResponse>
 
+    //약속 추가
+    @FormUrlEncoded
+    @POST("/appointment")
+    fun postRequestAddAppointment(
+        @Field("title")title : String,
+        @Field("datetime")datetime : String,
+        @Field("place")place : String,
+        @Field("latitude")latitude: Double,
+        @Field("longitude")longitude: Double
+    ):Call<BasicResponse>
 
 }

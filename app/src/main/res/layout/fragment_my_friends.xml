@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:text="친구 추가하기"
             android:layout_gravity="bottom|end"
+            android:visibility="gone"
             android:layout_margin="20dp"/>
 
     </FrameLayout>
