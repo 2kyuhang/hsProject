@@ -3,9 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/drawable/custom_rectangle_r4.xml" value="0.122" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/drawable/custom_rentangle_r.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1" />
-        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_add_appointment.xml" value="0.17603850050658562" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_add_appointment.xml" value="0.25" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_add_my_place.xml" value="0.10587639311043566" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_base.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_login.xml" value="0.25" />
@@ -24,7 +25,7 @@
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_requested_friends.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/friend_list_item.xml" value="0.1" />
-        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/place_list_item.xml" value="0.10764944275582573" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/place_list_item.xml" value="0.75" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
       </map>
     </option>

@@ -26,6 +26,7 @@
         android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:padding="12dp"/>
+        android:padding="4dp"
+        />
 
 </LinearLayout>

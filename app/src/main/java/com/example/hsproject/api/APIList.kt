@@ -119,7 +119,10 @@ interface APIList {
         @Field("datetime")datetime : String,
         @Field("place")place : String,
         @Field("latitude")latitude: Double,
-        @Field("longitude")longitude: Double
+        @Field("longitude")longitude: Double,
+        @Field("start_place") startPlace : String,
+        @Field("start_latitude") startLatitude : Double,
+        @Field("start_longitude") startLongitude : Double
     ):Call<BasicResponse>
 
     //내 약속 목록 가져오기
