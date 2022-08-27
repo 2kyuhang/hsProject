@@ -26,7 +26,7 @@ class AppointmentRecyclerAdapter(
 
             val formatter = SimpleDateFormat("M/dd a h:ss")
             titleTxt.text = item.title
-            dateTimeTxt.text = formatter.format(item.dateTime)
+            dateTimeTxt.text = formatter.format(item.datetime)
             placeTxt.text = "약속 장소 : ${item.place}"
             memberTxt.text = "참여 인원 : ${item.invitedFriends.size}명"
         }

@@ -90,7 +90,7 @@ class AddAppointmentActivity : BaseActivity() {
         //약속 생성하기
         binding.saveBtn.setOnClickListener {
             //약속 정함?
-            val inputTitle = binding.titleEdt.toString()
+            val inputTitle = binding.titleEdt.text.toString()
             if (inputTitle.isBlank()) {
                 return@setOnClickListener
             }

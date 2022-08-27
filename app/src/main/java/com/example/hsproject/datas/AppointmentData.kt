@@ -7,7 +7,7 @@ import java.util.*
 data class AppointmentData(
     val id : Int,
     val title : String,
-    val dateTime : Date,
+    val datetime : Date,
     val place : String,
     val latitude : Double,
     val longitude : Double,

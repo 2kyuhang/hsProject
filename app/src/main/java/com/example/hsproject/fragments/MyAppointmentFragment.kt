@@ -23,6 +23,7 @@ import retrofit2.Response
 class MyAppointmentFragment : BaseFragment(){
 
     lateinit var binding : FragmentMyAppointmentBinding
+
     lateinit var mAppointAdapter : AppointmentRecyclerAdapter
     val mAppointList = ArrayList<AppointmentData>()
 
@@ -61,6 +62,7 @@ class MyAppointmentFragment : BaseFragment(){
     fun getAppointmentDataFromServer() {
         apiList.getRequestMyAppointment().enqueue(object : Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                Log.d("문제", "뭐가 문제일까?")
                 if (response.isSuccessful) {
                     mAppointList.clear()
 

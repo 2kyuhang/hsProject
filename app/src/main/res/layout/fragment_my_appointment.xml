@@ -19,6 +19,7 @@
             android:text="약속 등록하기"
             android:layout_margin="20dp"
             android:layout_gravity="bottom|end"
+            android:visibility="gone"
             />
 
 
