@@ -122,4 +122,8 @@ interface APIList {
         @Field("longitude")longitude: Double
     ):Call<BasicResponse>
 
+    //내 약속 목록 가져오기
+    @GET("/appointment")
+    fun getRequestMyAppointment() : Call<BasicResponse>
+
 }

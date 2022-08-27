@@ -87,6 +87,7 @@ class AddAppointmentActivity : BaseActivity() {
             ).show()
         }
 
+        //약속 생성하기
         binding.saveBtn.setOnClickListener {
             //약속 정함?
             val inputTitle = binding.titleEdt.toString()
@@ -103,11 +104,11 @@ class AddAppointmentActivity : BaseActivity() {
                 Toast.makeText(mContext, "시간을 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            //지난날을 선택했나?
-            /*if(){
+            //지난날을 선택했나?//  약속날짜까지의 초     지금시간까지의 초 // 약속날짜까지의 지난 초가 많아야 미래임
+            if(mSelectedDataTime.timeInMillis < Calendar.getInstance().timeInMillis){
                 Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }*/
+            }
             //약속 장소 이름/명
             val inputPlaceName = binding.placeNameEdt.text.toString()
             if (inputPlaceName.isBlank()) {
@@ -120,22 +121,26 @@ class AddAppointmentActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
+
             //실제 도착 지점을 선택했는가? 네이버 지도
-/*            apiList.postRequestAddAppointment(
-                inputTitle, inputPlaceName,
+            apiList.postRequestAddAppointment(
+                inputTitle,sdf.format(mSelectedDataTime.time), inputPlaceName,
+                mSelectedLatLng!!.latitude, mSelectedLatLng!!.longitude
             ).enqueue(object : Callback<BasicResponse>{
                 override fun onResponse(
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
                 ) {
-
+                    Toast.makeText(mContext, "약속이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
 
                 override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
 
                 }
 
-            })*/
+            })
 
         }
         //지도 영역에 손을 대면 => 스크롤  뷰 정지!!

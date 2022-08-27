@@ -85,7 +85,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:maxLines="1"
-                android:text="약속 장소 이름 입력" />
+                android:hint="약속 장소 이름 입력" />
 
             <FrameLayout
                 android:layout_width="match_parent"
