@@ -20,11 +20,6 @@ abstract class BaseFragment : Fragment(){
     lateinit var retrofit: Retrofit
     lateinit var apiList : APIList
 
-    //액션바를 이 변수를 통해 자유롭게 사용 가능
-    lateinit var backBtn : ImageView
-    lateinit var titleTxt : TextView
-    lateinit var addBtn : ImageView
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

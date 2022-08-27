@@ -1,6 +1,8 @@
 package com.example.hsproject
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
@@ -28,9 +30,25 @@ class MainActivity : BaseActivity() {
         binding.bottomNav.setOnItemSelectedListener {
             //it에는 menu->bottom_nav_menu.xml의 아이템이 들어있다
             when (it.itemId) {//아이템 번호에 따라서 화면을 설정한다
-                R.id.myAppointment -> binding.mainViewPager.currentItem = 0
-                R.id.inbitedAppointment -> binding.mainViewPager.currentItem = 1
-                R.id.setting -> binding.mainViewPager.currentItem = 2
+                R.id.myAppointment -> {
+                    binding.mainViewPager.currentItem = 0
+                    //메인/약속/세팅의 액션바는 여기서 조절해주기
+                    //근데 그러면 +버튼이 늦게 생성되기때문에 꼭 물어보기!! ㅠㅠ
+                    titleTxt.text = "약속 지킴이"
+                    addIcon.visibility = View.VISIBLE
+                    addIcon.setOnClickListener {
+                        val myIntent = Intent(mContext, AddAppointmentActivity::class.java)
+                        startActivity(myIntent)
+                    }
+                }
+                R.id.inbitedAppointment -> {
+                    binding.mainViewPager.currentItem = 1
+                    addIcon.visibility = View.GONE
+                }
+                R.id.setting -> {
+                    binding.mainViewPager.currentItem = 2
+                    addIcon.visibility = View.GONE
+                }
                 //네이게이션을 누르면 화면이 이동! 단 화면이동시 네비는 이동 x
             }
             return@setOnItemSelectedListener true
@@ -55,7 +73,7 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
         //액션바 타이틀 이름 변경
-        titleTxt.text = "약속 지킴이"
+        addIcon.visibility = View.VISIBLE
 
         mPageAdapter = MainViewPagerAdapter(this) //여기에 어답타 붙이고
         binding.mainViewPager.adapter = mPageAdapter //연결하면 여기에 프레그먼트들이 붙음

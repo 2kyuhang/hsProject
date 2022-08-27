@@ -31,14 +31,11 @@ class MyAppointmentFragment : BaseFragment(){
     }
 
     override fun setEvent() {
-        addBtn.setOnClickListener {
-            val myIntent = Intent(mContext, AddAppointmentActivity::class.java)
-            startActivity(myIntent)
-        }
+
     }
 
     override fun setValues() {
-        addBtn.visibility = View.VISIBLE
+
     }
 
 }
