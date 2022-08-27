@@ -74,6 +74,7 @@ class AddAppointmentActivity : BaseActivity() {
                     mSelectedDataTime.set(Calendar.MINUTE, minute)//분 넣기
 
                     val sdf = SimpleDateFormat("a h:mm")
+
                     binding.timeTxt.text = sdf.format(mSelectedDataTime.time)
                 }
             }
