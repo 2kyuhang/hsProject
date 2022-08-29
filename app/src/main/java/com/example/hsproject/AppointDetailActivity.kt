@@ -70,9 +70,7 @@ class AppointDetailActivity : BaseActivity() {
                         }
 
                         override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-
                         }
-
                     })
                 })
                 .setNegativeButton("취소", null)
