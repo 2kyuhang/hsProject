@@ -1,15 +1,24 @@
 package com.example.hsproject
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivityAppointDetailBinding
 import com.example.hsproject.datas.AppointmentData
+import com.example.hsproject.datas.BasicResponse
+import com.example.hsproject.fragments.MyAppointmentFragment
 import com.example.hsproject.fragments.chatFragment
+import com.example.hsproject.utils.ContextUtil
 import com.naver.maps.map.MapView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 
 class AppointDetailActivity : BaseActivity() {
@@ -34,6 +43,40 @@ class AppointDetailActivity : BaseActivity() {
             val myIntent = Intent(mContext, ModifyAppointmentActivity::class.java)
             myIntent.putExtra("appointmentData", appointmentData)
             mContext.startActivity(myIntent)
+        }
+
+        //토큰 가져오기?????????? 여기에 토큰 코드 써도 되는건가?????????@@@@@@@@@@
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        val token = ContextUtil.getLoginToken(mContext)//@@@@@@@@@@@@@@@@@@@
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+        //약속 삭제
+        binding.appointmentDeleteBtn.setOnClickListener {
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("약속을 삭제하시겠습니까?")
+                //확인버튼 선택시
+                .setPositiveButton("삭제", DialogInterface.OnClickListener { dialogInterface, i ->
+                    apiList.deleteAppointment(appointmentData.id.toString()).enqueue(object : Callback<BasicResponse>{
+                        override fun onResponse(
+                            call: Call<BasicResponse>,
+                            response: Response<BasicResponse>
+                        ) {
+                            Toast.makeText(mContext, "약속이 삭제되었습니다.", Toast.LENGTH_SHORT)
+                                .show()
+
+                            //약속 삭제했으니깐 이전 프레그먼트 새로고침
+                            (mContext as MyAppointmentFragment).getAppointmentDataFromServer()
+                            finish()
+                        }
+
+                        override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                        }
+
+                    })
+                })
+                .setNegativeButton("취소", null)
+                .show()
         }
 
         //대화창 //약속리사티클러어답터에서 인텐트로 받은 정보를 대화창을 위해 한번 더 인텐트로 보낸다

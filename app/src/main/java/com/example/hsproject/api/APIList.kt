@@ -155,5 +155,10 @@ interface APIList {
         @Field("friend_list")friendList : String
     ):Call<BasicResponse>
 
+    //약속 삭제
+    @DELETE("/appointment")
+    fun deleteAppointment(
+        @Query("appointment_id")appointmentId : String
+    ):Call<BasicResponse>
 
 }
