@@ -35,8 +35,8 @@ class ChattingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this ,R.layout.activity_chatting)
-        setupEvents()
         setValues()
+        setupEvents()
     }
 
 
@@ -61,7 +61,7 @@ class ChattingActivity : BaseActivity() {
             inputMap["date"] = nowStr
             inputMap["deviceToken"] = deviceToken
 
-            //아마 message 부분에 약속고유ID 널고 아래도 고유ID 다른방 처럼 생길듯?
+            //아마 message 부분에 약속고유ID 넣고 아래도 고유ID 다른방 처럼 생길듯?
             database.getReference("${appointmentData.id}message").setValue(inputMap)
 
             binding.contentEdt.setText("")

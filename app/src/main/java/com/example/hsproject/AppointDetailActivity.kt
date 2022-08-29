@@ -3,6 +3,7 @@ package com.example.hsproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivityAppointDetailBinding
@@ -21,15 +22,18 @@ class AppointDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_appoint_detail)
-        setupEvents()
         setValues()
+        setupEvents()
     }
 
     override fun setupEvents() {
 
         //약속 수정 //인텐트로 정보 넣어 수정으로 보내주고 => 수정에서 바뀐거 약속 ID추가해서 되돌리기(여기 화면로 새로고침)
-        binding.appointmentChangeBtn.setOnClickListener {
 
+        binding.appointmentChangeBtn.setOnClickListener {
+            val myIntent = Intent(mContext, ModifyAppointmentActivity::class.java)
+            myIntent.putExtra("appointmentData", appointmentData)
+            mContext.startActivity(myIntent)
         }
 
         //대화창 //약속리사티클러어답터에서 인텐트로 받은 정보를 대화창을 위해 한번 더 인텐트로 보낸다
@@ -47,10 +51,25 @@ class AppointDetailActivity : BaseActivity() {
         backIcon.visibility = View.VISIBLE
         messageIcon.visibility = View.VISIBLE
 
+
+
+
+
         //전 페이지에서 하나의 약속정보 가져옴
         appointmentData = intent.getSerializableExtra("appointmentData") as AppointmentData
         binding.titleTxt.text = appointmentData.title
         binding.dateTxt.text = formatter.format(appointmentData.datetime)
+
+        var friend = ""
+        if(appointmentData.invitedFriends != null) {
+            for (UserData in appointmentData.invitedFriends) {
+                friend += UserData.nickname.toString()+", "
+            }
+            friend = friend.substring(0, friend.length-2)
+
+        }
+
+        binding.friendTxt.text = "인원 : ${ appointmentData.invitedFriends.size.toString()}명 (${friend})"
 
     }
 }

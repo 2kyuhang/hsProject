@@ -2,6 +2,7 @@ package com.example.hsproject.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ class AppointmentRecyclerAdapter(
                 var myIntent = Intent(mContext, AppointDetailActivity::class.java)
                 //인텐트로 약속상세에 appointmentData 정보 주기
                 myIntent.putExtra("appointmentData",item)
+                Log.d("문제", "${item.invitedFriends}")
                 mContext.startActivity(myIntent)
             }
         }
