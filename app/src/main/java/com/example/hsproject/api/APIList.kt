@@ -122,11 +122,20 @@ interface APIList {
         @Field("longitude")longitude: Double,
         @Field("start_place") startPlace : String,
         @Field("start_latitude") startLatitude : Double,
-        @Field("start_longitude") startLongitude : Double
+        @Field("start_longitude") startLongitude : Double,
+        @Field("friend_list")friendList : String
     ):Call<BasicResponse>
 
     //내 약속 목록 가져오기
     @GET("/appointment")
     fun getRequestMyAppointment() : Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("/user/social")
+    fun postRequestSocialLogin(
+        @Field("provider")provider : String,
+        @Field("uid")uid : String,
+        @Field("nick_name")nickname : String
+    ):Call<BasicResponse>
 
 }

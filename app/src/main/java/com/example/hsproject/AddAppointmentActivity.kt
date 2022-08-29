@@ -174,6 +174,7 @@ class AddAppointmentActivity : BaseActivity() {
             //약속 정함?
             val inputTitle = binding.titleEdt.text.toString()
             if (inputTitle.isBlank()) {
+                Toast.makeText(mContext, "약속명을 입력해주세요..", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             //약속 일시
@@ -204,13 +205,26 @@ class AddAppointmentActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
+            //선택한 친구 목록 가공해서 넣을거
+            var friendListStr = ""
+            for(friend in mSelectedFriendList){
+                friendListStr += friend.id
+                friendListStr += ","
+            }
+            if(friendListStr != ""){
+                friendListStr = friendListStr.substring(0, friendListStr.length - 1)
+            }
+
+
+
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
 
             //실제 도착 지점을 선택했는가? 네이버 지도
             apiList.postRequestAddAppointment(
                 inputTitle,sdf.format(mSelectedDataTime.time), inputPlaceName,
                 mSelectedLatLng!!.latitude, mSelectedLatLng!!.longitude,
-                mStartPlace.name, mStartPlace.latitude, mStartPlace.longitude
+                mStartPlace.name, mStartPlace.latitude, mStartPlace.longitude,
+                friendListStr
             ).enqueue(object : Callback<BasicResponse>{
                 override fun onResponse(
                     call: Call<BasicResponse>,

@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import com.example.hsproject.datas.BasicResponse
 import com.example.hsproject.utils.ContextUtil
 import com.example.hsproject.utils.GlobalData
+import com.kakao.sdk.common.util.Utility
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +46,7 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun setValues() {
+        getKeyHash()
         val myHandler = Handler(Looper.getMainLooper())
 
         myHandler.postDelayed(
@@ -64,5 +67,9 @@ class SplashActivity : BaseActivity() {
                 }
                 finish()
             }, 2000)
+    }
+    fun getKeyHash(){
+        var keyHash = Utility.getKeyHash(this)
+        Log.d("key", keyHash)
     }
 }
