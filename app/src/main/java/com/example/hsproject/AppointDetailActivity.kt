@@ -50,6 +50,7 @@ class AppointDetailActivity : BaseActivity() {
         val token = ContextUtil.getLoginToken(mContext)//@@@@@@@@@@@@@@@@@@@
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+
         //약속 삭제
         binding.appointmentDeleteBtn.setOnClickListener {
             val alert = AlertDialog.Builder(mContext)
