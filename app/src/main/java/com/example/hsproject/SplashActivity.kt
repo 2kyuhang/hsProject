@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.example.hsproject.datas.BasicResponse
 import com.example.hsproject.utils.ContextUtil
 import com.example.hsproject.utils.GlobalData
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.common.util.Utility
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,6 +47,12 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+                Log.d("DeviceToken", it.result)
+            //dqeMkKmNS0qJ-6xxxeBKn9:APA91bF_m97Cqj6GaopRsqPswFMyJM7QJG4ip8Y6NJrYSTXJLj83Rm5HdDMn37UT_ySqbH7heeQ0qggFbwSb-F-mwQusbQX4-B6Ub2jDe2QVXFeWM8XFS0xyD_0AFIhvgrlFprJycyPR
+        }
+
         getKeyHash()
         val myHandler = Handler(Looper.getMainLooper())
 

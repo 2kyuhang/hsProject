@@ -19,6 +19,7 @@ abstract class BaseActivity : AppCompatActivity(){
     lateinit var backIcon : ImageView
     lateinit var titleTxt : TextView
     lateinit var addIcon : ImageView
+    lateinit var messageIcon : ImageView
 
 
     lateinit var retrofit : Retrofit
@@ -58,6 +59,7 @@ abstract class BaseActivity : AppCompatActivity(){
         titleTxt = defaultActionBar.customView.findViewById<TextView>(R.id.titleTxt)
         addIcon = defaultActionBar.customView.findViewById<ImageView>(R.id.addIcon)
         backIcon = defaultActionBar.customView.findViewById<ImageView>(R.id.backIcon)
+        messageIcon = defaultActionBar.customView.findViewById<ImageView>(R.id.messageIcon)
 
         backIcon.setOnClickListener { finish() }
     }

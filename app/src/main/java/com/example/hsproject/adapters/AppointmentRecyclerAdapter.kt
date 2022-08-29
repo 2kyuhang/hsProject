@@ -34,7 +34,8 @@ class AppointmentRecyclerAdapter(
 
             itemView.setOnClickListener {
                 var myIntent = Intent(mContext, AppointDetailActivity::class.java)
-                myIntent.putExtra("appointData",item)
+                //인텐트로 약속상세에 appointmentData 정보 주기
+                myIntent.putExtra("appointmentData",item)
                 mContext.startActivity(myIntent)
             }
         }

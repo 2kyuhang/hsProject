@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivitySignUpBinding
 import com.example.hsproject.datas.BasicResponse
+import com.example.hsproject.utils.ContextUtil
+import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -101,7 +103,10 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setValues() {
-
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            Log.d("DeviceToken", it.result)
+            ContextUtil.setDeviceToken(mContext, it.result)
+        }
     }
 
     fun dupCheck(type : String, value : String){

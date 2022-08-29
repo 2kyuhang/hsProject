@@ -130,6 +130,7 @@ interface APIList {
     @GET("/appointment")
     fun getRequestMyAppointment() : Call<BasicResponse>
 
+    //소셜 로그인
     @FormUrlEncoded
     @POST("/user/social")
     fun postRequestSocialLogin(
@@ -137,5 +138,22 @@ interface APIList {
         @Field("uid")uid : String,
         @Field("nick_name")nickname : String
     ):Call<BasicResponse>
+
+    //약속 변경
+    @FormUrlEncoded
+    @PUT("/appointment")
+    fun putRequestChangeAppointment(
+        @Field("appointment_id")appointmentId : String, //약속 고유 ID
+        @Field("title")title : String,
+        @Field("datetime")datetime : String,
+        @Field("place")place : String,
+        @Field("latitude")latitude: Double,
+        @Field("longitude")longitude: Double,
+        @Field("start_place") startPlace : String,
+        @Field("start_latitude") startLatitude : Double,
+        @Field("start_longitude") startLongitude : Double,
+        @Field("friend_list")friendList : String
+    ):Call<BasicResponse>
+
 
 }
