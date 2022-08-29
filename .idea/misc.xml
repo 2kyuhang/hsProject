@@ -6,8 +6,10 @@
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/drawable/custom_rectangle_r4.xml" value="0.122" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/drawable/custom_rentangle_r.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/drawable/ic_baseline_message_24.xml" value="0.2285" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_add_appointment.xml" value="0.25" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_add_my_place.xml" value="0.10587639311043566" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_appoint_detail.xml" value="0.33" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_base.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -21,7 +23,7 @@
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/custom_action_bar.xml" value="0.15579710144927536" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/custom_alert_dialog.xml" value="0.33" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_invited_appointment.xml" value="0.17603850050658562" />
-        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_my_appointment.xml" value="0.17603850050658562" />
+        <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_my_appointment.xml" value="0.5" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_my_friends.xml" value="0.1" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_requested_friends.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/Lee/Test/hsProject/app/src/main/res/layout/fragment_setting.xml" value="0.25" />

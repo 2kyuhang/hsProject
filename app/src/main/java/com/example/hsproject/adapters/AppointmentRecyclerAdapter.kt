@@ -1,11 +1,13 @@
 package com.example.hsproject.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hsproject.AppointDetailActivity
 import com.example.hsproject.R
 import com.example.hsproject.datas.AppointmentData
 import java.text.SimpleDateFormat
@@ -29,6 +31,12 @@ class AppointmentRecyclerAdapter(
             dateTimeTxt.text = formatter.format(item.datetime)
             placeTxt.text = "약속 장소 : ${item.place}"
             memberTxt.text = "참여 인원 : ${item.invitedFriends.size}명"
+
+            itemView.setOnClickListener {
+                var myIntent = Intent(mContext, AppointDetailActivity::class.java)
+                myIntent.putExtra("appointData",item)
+                mContext.startActivity(myIntent)
+            }
         }
     }
 
