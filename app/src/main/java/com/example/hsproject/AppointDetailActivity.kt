@@ -35,7 +35,7 @@ class AppointDetailActivity : BaseActivity() {
         //대화창 //약속리사티클러어답터에서 인텐트로 받은 정보를 대화창을 위해 한번 더 인텐트로 보낸다
         //시간여유 생기면 필요한것만 넘기기
         messageIcon.setOnClickListener {
-            val myIntent = Intent(mContext, chatFragment::class.java)
+            val myIntent = Intent(mContext, ChattingActivity::class.java)
             myIntent.putExtra("appointmentData", appointmentData)
             mContext.startActivity(myIntent)
         }
