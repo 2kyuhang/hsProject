@@ -127,7 +127,7 @@ class AppointDetailActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
     }
