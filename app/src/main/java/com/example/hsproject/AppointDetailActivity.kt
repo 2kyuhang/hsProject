@@ -95,6 +95,8 @@ class AppointDetailActivity : BaseActivity() {
 
 
 
+
+
         //전 페이지에서 하나의 약속정보 가져옴
         appointmentData = intent.getSerializableExtra("appointmentData") as AppointmentData
         binding.titleTxt.text = appointmentData.title
@@ -110,9 +112,19 @@ class AppointDetailActivity : BaseActivity() {
         }
 
         binding.friendTxt.text = "인원 : ${ appointmentData.invitedFriends.size.toString()}명 (${friend})"
-
+        getDetailAppointmentFromServer()
     }
 
 
+    fun getDetailAppointmentFromServer(){
+        apiList.getRequestMyDetailAppointment().enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+        })
+    }
 }
