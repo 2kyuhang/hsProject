@@ -73,14 +73,16 @@ class ChattingActivity : BaseActivity() {
                     Log.d("message 항목 값", snapshot.value.toString())//message 모든 값이 들어 있다
                     //binding.contentTxt.text = snapshot.child("content").value.toString()
 
-                    mList.add(0,
-                        ChattingData(
-                            snapshot.child("content").value.toString(),
-                            snapshot.child("date").value.toString(),
-                            snapshot.child("deviceToken").value.toString()
+                    if(snapshot.value != null){
+                        mList.add(0,
+                            ChattingData(
+                                snapshot.child("content").value.toString(),
+                                snapshot.child("date").value.toString(),
+                                snapshot.child("deviceToken").value.toString()
+                            )
                         )
-                    )
-                    mAdapter.notifyDataSetChanged()//새로고침
+                        mAdapter.notifyDataSetChanged()//새로고침
+                    }
                 }
                 //데이터 취소시 어떻할거냐?
                 override fun onCancelled(error: DatabaseError) {

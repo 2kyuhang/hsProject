@@ -121,7 +121,7 @@ class AddAppointmentActivity : BaseActivity() {
 
 
                 //네이버 지도에 출발지 표시할거다
-                mNaverMap.let {
+                mNaverMap?.let {
                     mStartPlaceMarker.position = LatLng(mStartPlace.latitude, mStartPlace.longitude)
                     mStartPlaceMarker.map = mNaverMap
 
