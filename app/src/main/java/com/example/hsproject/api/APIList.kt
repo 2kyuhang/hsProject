@@ -133,7 +133,7 @@ interface APIList {
     //약속 상세조회
     @GET("/appointment/{appointment_id}")
     fun getRequestMyDetailAppointment(
-        @Field("appointment_id")appointmentId : String
+        @Path("appointment_id")appointmentId : String
     ):Call<BasicResponse>
 
     //소셜 로그인

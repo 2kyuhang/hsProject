@@ -40,7 +40,7 @@ class AppointmentRecyclerAdapter(
                 myIntent.putExtra("appointmentData",item)
 
                 //myIntent.putExtra("appointmentIdData",item.id)
-                Log.d("문제", "${item.id}")
+                //Log.d("문제", "${item.id}")
                 mContext.startActivity(myIntent)
             }
         }

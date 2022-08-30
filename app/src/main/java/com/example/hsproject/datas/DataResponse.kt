@@ -8,5 +8,6 @@ data class DataResponse(
     val friends : List<UserData>,
     val users : List<UserData>,
     val places : List<PlaceData>,
-    val appointments : List<AppointmentData>
+    val appointments : List<AppointmentData>,
+    val appointment : AppointmentData
 ) :Serializable

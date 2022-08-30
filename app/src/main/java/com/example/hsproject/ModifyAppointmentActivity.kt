@@ -199,6 +199,8 @@ class ModifyAppointmentActivity : BaseActivity() {
                 ) {
                     if(response.isSuccessful){
                         Toast.makeText(mContext, "약속이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+
+                        //(mContext as AppointDetailActivity).getAppointmentDetailFromServer()
                         finish()
                     }
                 }
@@ -224,6 +226,8 @@ class ModifyAppointmentActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+
         titleTxt.text = "약속 수정하기"
         backIcon.visibility = View.VISIBLE
         appointmentData = intent.getSerializableExtra("appointmentData") as AppointmentData
@@ -253,7 +257,8 @@ class ModifyAppointmentActivity : BaseActivity() {
             //스피너에서는 항상 1번째 항목에 대한 값을 가지는데
             //스피너가 발동하는데 setEvent 이다보니 setValue보다 느려서 값이 없기에
             //여기서 값만 먼저 넣어주면 해결!!
-            mStartPlaceMarker.position = LatLng(mStartPlace.latitude, mStartPlace.longitude)
+            mStartPlaceMarker.position = LatLng(appointmentData.startLatitude, appointmentData.startLongitude)
+            //mStartPlaceMarker.position = LatLng(mStartPlace.latitude, mStartPlace.longitude)
             mStartPlaceMarker.map = mNaverMap
 
             var cameralatitude = 0.0
@@ -264,9 +269,9 @@ class ModifyAppointmentActivity : BaseActivity() {
             val senterCoord = LatLng(cameralatitude, cameraLongitude)
             val cameraPosition = CameraPosition(senterCoord, 8.0)
 
-            Log.d("문제 출발","${appointmentData.startLatitude} ${appointmentData.startLongitude}")
+            /*Log.d("문제 출발","${appointmentData.startLatitude} ${appointmentData.startLongitude}")
             Log.d("문제 도착","${appointmentData.latitude} ${appointmentData.longitude}")
-            Log.d("문제 중간","${cameralatitude} ${cameraLongitude}")
+            Log.d("문제 mStartPlace","${mStartPlace.latitude} ${mStartPlace.longitude}")*/
 
             mNaverMap!!.cameraPosition = cameraPosition
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -275,6 +280,7 @@ class ModifyAppointmentActivity : BaseActivity() {
             //이게 내가 찍은 좌표
             val coord = LatLng(appointmentData.latitude, appointmentData.longitude)
             val marker = Marker()
+            mSelectedLatLng = coord
             marker.position = coord
             marker.icon = OverlayImage.fromResource(R.drawable.red_marker)
             marker.map = mNaverMap//마커를 네이버 지도에 올리기
@@ -314,6 +320,7 @@ class ModifyAppointmentActivity : BaseActivity() {
                 if(response.isSuccessful){
                     mStartPlaceList.clear()
                     mStartPlaceList.addAll(response.body()!!.data.places)
+
                     mPlaceSpinnerAdapter.notifyDataSetChanged()
                 }
             }

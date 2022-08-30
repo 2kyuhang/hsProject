@@ -35,6 +35,11 @@ class AppointDetailActivity : BaseActivity() {
         setupEvents()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getAppointmentDetailFromServer()
+    }
+
     override fun setupEvents() {
 
         //약속 수정 //인텐트로 정보 넣어 수정으로 보내주고 => 수정에서 바뀐거 약속 ID추가해서 되돌리기(여기 화면로 새로고침)
@@ -93,15 +98,33 @@ class AppointDetailActivity : BaseActivity() {
         backIcon.visibility = View.VISIBLE
         messageIcon.visibility = View.VISIBLE
 
-
-
-
-
         //전 페이지에서 하나의 약속정보 가져옴
         appointmentData = intent.getSerializableExtra("appointmentData") as AppointmentData
         binding.titleTxt.text = appointmentData.title
         binding.dateTxt.text = formatter.format(appointmentData.datetime)
 
+        getAppointmentDetailFromServer()
+
+    }
+
+    fun getAppointmentDetailFromServer(){
+        apiList.getRequestMyDetailAppointment(appointmentData.id.toString()).enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if (response.isSuccessful){
+
+                    var br = response.body()!!
+                    appointmentData = br.data.appointment as AppointmentData
+                    setUiformData()
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+        })
+    }
+
+    fun setUiformData(){
         var friend = ""
         if(appointmentData.invitedFriends != null) {
             for (UserData in appointmentData.invitedFriends) {
@@ -112,24 +135,6 @@ class AppointDetailActivity : BaseActivity() {
         }
 
         binding.friendTxt.text = "인원 : ${ appointmentData.invitedFriends.size.toString()}명 (${friend})"
-
-        getAppointmentDetailFromServer()
-    }
-
-    fun getAppointmentDetailFromServer(){
-        apiList.getRequestMyDetailAppointment(appointmentData.id.toString()).enqueue(object : Callback<BasicResponse>{
-            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-                if (response.isSuccessful){
-
-                    var br = response.body()!!
-                    appointmentData = br.data as AppointmentData
-                }
-            }
-
-            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-
-            }
-        })
     }
 
 }
