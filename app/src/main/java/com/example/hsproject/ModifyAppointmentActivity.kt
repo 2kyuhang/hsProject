@@ -126,7 +126,7 @@ class ModifyAppointmentActivity : BaseActivity() {
 
 
                 //네이버 지도에 출발지 표시할거다
-                mNaverMap.let {
+                mNaverMap?.let {
                     mStartPlaceMarker.position = LatLng(mStartPlace.latitude, mStartPlace.longitude)
                     mStartPlaceMarker.map = mNaverMap
 
@@ -204,7 +204,7 @@ class ModifyAppointmentActivity : BaseActivity() {
                 }
 
                 override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-
+                    Log.d("문제", t.message.toString())
                 }
 
             })
@@ -243,36 +243,34 @@ class ModifyAppointmentActivity : BaseActivity() {
             }
 
         mapFragment.getMapAsync {
-
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            //중간지점을 카메라 보여주기
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             if(mNaverMap == null){
                 mNaverMap = it
             }
 
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //중간지점을 카메라 보여주기
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //스피너에서는 항상 1번째 항목에 대한 값을 가지는데
+            //스피너가 발동하는데 setEvent 이다보니 setValue보다 느려서 값이 없기에
+            //여기서 값만 먼저 넣어주면 해결!!
+            mStartPlaceMarker.position = LatLng(mStartPlace.latitude, mStartPlace.longitude)
+            mStartPlaceMarker.map = mNaverMap
+
             var cameralatitude = 0.0
             var cameraLongitude = 0.0
-            if(appointmentData.latitude < appointmentData.startLatitude){
-                cameralatitude = appointmentData.latitude + (appointmentData.startLatitude-appointmentData.latitude)/2
-            }else{
-                cameralatitude = appointmentData.startLatitude + (appointmentData.latitude-appointmentData.startLatitude)/2
-            }
-            if(appointmentData.longitude < appointmentData.startLongitude){
-                cameraLongitude = appointmentData.longitude + (appointmentData.startLongitude-appointmentData.longitude)/2
-            }else{
-                cameraLongitude = appointmentData.startLongitude + (appointmentData.longitude-appointmentData.startLongitude)/2
-            }
+
+            cameralatitude =  (appointmentData.startLatitude+appointmentData.latitude)/2
+            cameraLongitude = (appointmentData.longitude+appointmentData.startLongitude)/2
             val senterCoord = LatLng(cameralatitude, cameraLongitude)
-            val cameraPosition = CameraPosition(senterCoord, 10.0)
-            mNaverMap!!.cameraPosition = cameraPosition
+            val cameraPosition = CameraPosition(senterCoord, 8.0)
 
             Log.d("문제 출발","${appointmentData.startLatitude} ${appointmentData.startLongitude}")
             Log.d("문제 도착","${appointmentData.latitude} ${appointmentData.longitude}")
             Log.d("문제 중간","${cameralatitude} ${cameraLongitude}")
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+            mNaverMap!!.cameraPosition = cameraPosition
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
             //이게 내가 찍은 좌표
             val coord = LatLng(appointmentData.latitude, appointmentData.longitude)
@@ -281,9 +279,7 @@ class ModifyAppointmentActivity : BaseActivity() {
             marker.icon = OverlayImage.fromResource(R.drawable.red_marker)
             marker.map = mNaverMap//마커를 네이버 지도에 올리기
 
-
-
-            //여긴 도착지점 좌표찍는거다
+            //도착지점 찍을때마다 변경해주기
             mNaverMap!!.setOnMapClickListener { pointF, latLng ->
                 mSelectedLatLng = latLng//내가 사용할 변수에 좌표 담기
                 marker.position = latLng//마커 좌표 알려주기
@@ -291,6 +287,8 @@ class ModifyAppointmentActivity : BaseActivity() {
             }
 
         }
+
+
         var friend = ""
         if(appointmentData.invitedFriends != null) {
             for (UserData in appointmentData.invitedFriends) {

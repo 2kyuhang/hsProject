@@ -108,6 +108,6 @@ class AddMyPlaceActivity : BaseActivity() {
 
         }
 
-
     }
+
 }

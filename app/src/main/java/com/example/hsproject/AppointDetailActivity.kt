@@ -112,6 +112,19 @@ class AppointDetailActivity : BaseActivity() {
         }
 
         binding.friendTxt.text = "인원 : ${ appointmentData.invitedFriends.size.toString()}명 (${friend})"
+        getDetailAppointmentFromServer()
+    }
 
+
+    fun getDetailAppointmentFromServer(){
+        apiList.getRequestMyDetailAppointment().enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+        })
     }
 }

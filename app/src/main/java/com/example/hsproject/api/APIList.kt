@@ -130,6 +130,12 @@ interface APIList {
     @GET("/appointment")
     fun getRequestMyAppointment() : Call<BasicResponse>
 
+    //약속 상세조회
+    @GET("/appointment/{appointment_id}")
+    fun getRequestMyDetailAppointment(
+        @Field("appointment_id")appointmentId : String
+    ):Call<BasicResponse>
+
     //소셜 로그인
     @FormUrlEncoded
     @POST("/user/social")
