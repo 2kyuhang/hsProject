@@ -216,7 +216,7 @@ class SettingFragment : BaseFragment(){
             //뷰 수정
             val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
             inputEdt.maxLines = 2
-            inputEdt.setTextSize(Dimension.DP, 16f)
+            inputEdt.setTextSize(Dimension.DP, 35f)
             inputEdt.setHint("회원 탈퇴를 하시려면 '동의' 를 입력해주세요")
 
             //토큰 가져오기

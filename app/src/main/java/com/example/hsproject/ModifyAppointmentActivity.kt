@@ -19,6 +19,7 @@ import com.example.hsproject.datas.BasicResponse
 import com.example.hsproject.datas.PlaceData
 import com.example.hsproject.datas.UserData
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -242,14 +243,45 @@ class ModifyAppointmentActivity : BaseActivity() {
             }
 
         mapFragment.getMapAsync {
+
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //중간지점을 카메라 보여주기
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             if(mNaverMap == null){
                 mNaverMap = it
             }
+
+            var cameralatitude = 0.0
+            var cameraLongitude = 0.0
+            if(appointmentData.latitude < appointmentData.startLatitude){
+                cameralatitude = appointmentData.latitude + (appointmentData.startLatitude-appointmentData.latitude)/2
+            }else{
+                cameralatitude = appointmentData.startLatitude + (appointmentData.latitude-appointmentData.startLatitude)/2
+            }
+            if(appointmentData.longitude < appointmentData.startLongitude){
+                cameraLongitude = appointmentData.longitude + (appointmentData.startLongitude-appointmentData.longitude)/2
+            }else{
+                cameraLongitude = appointmentData.startLongitude + (appointmentData.longitude-appointmentData.startLongitude)/2
+            }
+            val senterCoord = LatLng(cameralatitude, cameraLongitude)
+            val cameraPosition = CameraPosition(senterCoord, 10.0)
+            mNaverMap!!.cameraPosition = cameraPosition
+
+            Log.d("문제 출발","${appointmentData.startLatitude} ${appointmentData.startLongitude}")
+            Log.d("문제 도착","${appointmentData.latitude} ${appointmentData.longitude}")
+            Log.d("문제 중간","${cameralatitude} ${cameraLongitude}")
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+            //이게 내가 찍은 좌표
             val coord = LatLng(appointmentData.latitude, appointmentData.longitude)
             val marker = Marker()
             marker.position = coord
             marker.icon = OverlayImage.fromResource(R.drawable.red_marker)
             marker.map = mNaverMap//마커를 네이버 지도에 올리기
+
+
 
             //여긴 도착지점 좌표찍는거다
             mNaverMap!!.setOnMapClickListener { pointF, latLng ->
