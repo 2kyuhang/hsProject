@@ -21,12 +21,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 
-class AppointDetailActivity : BaseActivity() {
+abstract class AppointDetailActivity : BaseActivity() {
 
     lateinit var binding :ActivityAppointDetailBinding
     lateinit var mapView : MapView
 
     lateinit var appointmentData : AppointmentData
+
+    //abstract var appointmentDataId : Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +101,10 @@ class AppointDetailActivity : BaseActivity() {
 
         //전 페이지에서 하나의 약속정보 가져옴
         appointmentData = intent.getSerializableExtra("appointmentData") as AppointmentData
+        //appointmentDataId = intent.getSerializableExtra("appointmentIdData") as Int
+
+
+
         binding.titleTxt.text = appointmentData.title
         binding.dateTxt.text = formatter.format(appointmentData.datetime)
 
@@ -112,14 +118,20 @@ class AppointDetailActivity : BaseActivity() {
         }
 
         binding.friendTxt.text = "인원 : ${ appointmentData.invitedFriends.size.toString()}명 (${friend})"
-        getDetailAppointmentFromServer()
+
     }
 
 
     fun getDetailAppointmentFromServer(){
-        apiList.getRequestMyDetailAppointment().enqueue(object : Callback<BasicResponse>{
+        apiList.getRequestMyDetailAppointment(
+            appointmentData.id.toString()
+        ).enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-
+                if(response.isSuccessful){
+                    var br = response.body()!!
+                    //appointmentData = br.data.appointments as AppointmentData
+                    appointmentData = br.data as AppointmentData
+                }
             }
 
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
