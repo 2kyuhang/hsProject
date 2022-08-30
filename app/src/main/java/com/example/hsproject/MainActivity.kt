@@ -46,6 +46,7 @@ class MainActivity : BaseActivity() {
                     addIcon.visibility = View.GONE
                 }
                 R.id.setting -> {
+                    titleTxt.text = "내 정보"
                     binding.mainViewPager.currentItem = 2
                     addIcon.visibility = View.GONE
                 }

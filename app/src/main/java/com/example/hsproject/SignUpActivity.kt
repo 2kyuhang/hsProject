@@ -2,6 +2,7 @@ package com.example.hsproject
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivitySignUpBinding
@@ -103,6 +104,8 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setValues() {
+        backIcon.visibility = View.VISIBLE
+        titleTxt.text = "회원가입"
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
             Log.d("DeviceToken", it.result)
             ContextUtil.setDeviceToken(mContext, it.result)

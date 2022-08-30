@@ -47,6 +47,7 @@ class MyPlaceActivity : BaseActivity() {
         //장소 추가버튼 지우고 액션바에 만듬
         addIcon.visibility = View.VISIBLE
         backIcon.visibility = View.VISIBLE
+        titleTxt.text = "나의 출발지"
 
         mPlaceAdapter = PlaceRecyclerAdapter(mContext, mPlaceList)
         binding.placeRecyclerView.adapter = mPlaceAdapter

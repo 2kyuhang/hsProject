@@ -1,9 +1,15 @@
 package com.example.hsproject
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.hsproject.databinding.ActivityLoginBinding
@@ -34,6 +40,7 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+        //로그인
         binding.LoginBtn.setOnClickListener {
 
             val inputEmail = binding.emailEdt.text.toString()
@@ -81,15 +88,60 @@ class LoginActivity : BaseActivity() {
                 }
             })
         }
-
+        //회원가입
         binding.signUpBtn.setOnClickListener {
             val myIntent = Intent(mContext, SignUpActivity::class.java)
             startActivity(myIntent)
         }
-
+        //카카오 로그인
         binding.kakaoLoginBtn.setOnClickListener {
             kakaoLogin()
         }
+        //비밀번호 찾기
+        binding.searchPwTxt.setOnClickListener {
+            // 커스텀 뷰 만든거 변수화
+            val customView = LayoutInflater.from(mContext).inflate(R.layout.custom_alert_dialog, null)
+            //뷰 수정
+            val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
+            inputEdt.visibility = View.GONE//닉네임 변경창 숨기기
+            val searchLayout = customView.findViewById<LinearLayout>(R.id.searchPwLayout)
+            searchLayout.visibility = View.VISIBLE
+            val emailEdt = customView.findViewById<EditText>(R.id.emailEdt)
+            val nickEdt = customView.findViewById<EditText>(R.id.nickEdt)
+
+            //알럿 창!! 경고창!!
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("비밀번호 찾기")
+                .setMessage("이메일과 닉네임을 통해 비밀번호 찾기")
+                .setView(customView) // 뷰 넣기
+                //확인버튼 선택시
+                .setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
+                    apiList.searchPw(emailEdt.text.toString(), nickEdt.text.toString()).enqueue(object :Callback<BasicResponse>{
+                        override fun onResponse(
+                            call: Call<BasicResponse>,
+                            response: Response<BasicResponse>
+                        ) {
+                            if(response.isSuccessful){
+                                Toast.makeText(mContext, "임시 비밀번호가 ${emailEdt.text.toString()} 로 전송되었습니다.",Toast.LENGTH_SHORT)
+                                    .show()
+                            }else{
+                                Toast.makeText(mContext, "일치하는 사용자가 없습니다.",Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                        }
+
+                    })
+                })
+                //취소버튼 선택시
+                .setNegativeButton("취소", null)
+                .show()
+
+
+        }
+
     }
 
     override fun setValues() {

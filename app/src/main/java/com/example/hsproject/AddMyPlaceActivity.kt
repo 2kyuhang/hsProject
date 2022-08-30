@@ -62,6 +62,7 @@ class AddMyPlaceActivity : BaseActivity() {
     override fun setValues() {
 
         backIcon.visibility = View.VISIBLE
+        titleTxt.text = "출방장소 추가하기"
 
         //지도객체
         val fm = supportFragmentManager

@@ -168,4 +168,12 @@ interface APIList {
         @Query("text")text : String
     ):Call<BasicResponse>
 
+    //비밀번호 찾기//이메일전송
+    @FormUrlEncoded
+    @POST("/user/password")
+    fun searchPw(
+        @Field("email")email: String,
+        @Field("nick_name")nickName : String
+    ):Call<BasicResponse>
+
 }

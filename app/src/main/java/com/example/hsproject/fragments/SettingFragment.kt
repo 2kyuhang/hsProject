@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.Dimension
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.hsproject.*
@@ -77,7 +78,7 @@ class SettingFragment : BaseFragment(){
 
         }
         //닉네임 변경
-        binding.nickTxt.setOnClickListener {
+        binding.editNickLayout.setOnClickListener {
 
             // 뷰 만든거 변수화
             val customView = LayoutInflater.from(mContext).inflate(R.layout.custom_alert_dialog, null)
@@ -155,6 +156,10 @@ class SettingFragment : BaseFragment(){
                     val currentPw = currentPwEdt.text.toString()
                     val newPw = newPwEdt.text.toString()
 
+                    if(currentPw == newPw){
+                        Toast.makeText(mContext,"같은 비밀번호로 변경할 수 없습니다.",Toast.LENGTH_SHORT).show()
+                        return@OnClickListener
+                    }
 
                     apiList.patchRequestChangePassword(currentPw, newPw).enqueue(object :Callback<BasicResponse>{
                         override fun onResponse(
@@ -202,7 +207,7 @@ class SettingFragment : BaseFragment(){
         }
 
 
-        //닉네임 변경
+        //회원탈퇴
         binding.userDeleteLayout.setOnClickListener {
 
             // 뷰 만든거 변수화
@@ -210,6 +215,8 @@ class SettingFragment : BaseFragment(){
 
             //뷰 수정
             val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
+            inputEdt.maxLines = 2
+            inputEdt.setTextSize(Dimension.DP, 16f)
             inputEdt.setHint("회원 탈퇴를 하시려면 '동의' 를 입력해주세요")
 
             //토큰 가져오기
@@ -252,6 +259,8 @@ class SettingFragment : BaseFragment(){
     }
 
     override fun setValues() {
+
+
         Glide.with(mContext)
             .load(GlobalData.loginUser!!.profileImg)
             .into(binding.profileImg)
