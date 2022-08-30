@@ -95,8 +95,6 @@ class AppointDetailActivity : BaseActivity() {
 
 
 
-
-
         //전 페이지에서 하나의 약속정보 가져옴
         appointmentData = intent.getSerializableExtra("appointmentData") as AppointmentData
         binding.titleTxt.text = appointmentData.title
