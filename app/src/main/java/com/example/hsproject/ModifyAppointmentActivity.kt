@@ -200,7 +200,7 @@ class ModifyAppointmentActivity : BaseActivity() {
                     if(response.isSuccessful){
                         Toast.makeText(mContext, "약속이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-                        //(mContext as AppointDetailActivity).getAppointmentDetailFromServer()
+                        AppointDetailActivity().getAppointmentDetailFromServer()
                         finish()
                     }
                 }
@@ -267,7 +267,7 @@ class ModifyAppointmentActivity : BaseActivity() {
             cameralatitude =  (appointmentData.startLatitude+appointmentData.latitude)/2
             cameraLongitude = (appointmentData.longitude+appointmentData.startLongitude)/2
             val senterCoord = LatLng(cameralatitude, cameraLongitude)
-            val cameraPosition = CameraPosition(senterCoord, 8.0)
+            val cameraPosition = CameraPosition(senterCoord, 12.0)
 
             /*Log.d("문제 출발","${appointmentData.startLatitude} ${appointmentData.startLongitude}")
             Log.d("문제 도착","${appointmentData.latitude} ${appointmentData.longitude}")

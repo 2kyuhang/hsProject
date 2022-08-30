@@ -125,6 +125,10 @@ class AppointDetailActivity : BaseActivity() {
     }
 
     fun setUiformData(){
+        val formatter = SimpleDateFormat("M/dd a h:ss")
+        binding.titleTxt.text = appointmentData.title
+        binding.dateTxt.text = formatter.format(appointmentData.datetime)
+
         var friend = ""
         if(appointmentData.invitedFriends != null) {
             for (UserData in appointmentData.invitedFriends) {
