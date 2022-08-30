@@ -161,4 +161,11 @@ interface APIList {
         @Query("appointment_id")appointmentId : String
     ):Call<BasicResponse>
 
+
+    //회원탈퇴
+    @DELETE("/user")
+    fun deleteUser(
+        @Query("text")text : String
+    ):Call<BasicResponse>
+
 }

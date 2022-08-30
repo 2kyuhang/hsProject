@@ -201,6 +201,54 @@ class SettingFragment : BaseFragment(){
             startActivity(myIntent)
         }
 
+
+        //닉네임 변경
+        binding.userDeleteLayout.setOnClickListener {
+
+            // 뷰 만든거 변수화
+            val customView = LayoutInflater.from(mContext).inflate(R.layout.custom_alert_dialog, null)
+
+            //뷰 수정
+            val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
+            inputEdt.setHint("회원 탈퇴를 하시려면 '동의' 를 입력해주세요")
+
+            //토큰 가져오기
+            val token = ContextUtil.getLoginToken(mContext)
+
+            //알럿 창!! 경고창!!
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("회원 탈퇴")
+                .setView(customView) // 뷰 넣기
+                //확인버튼 선택시
+                .setPositiveButton("회원탈퇴", DialogInterface.OnClickListener { dialogInterface, i ->
+                    apiList.deleteUser(inputEdt.text.toString()).enqueue(object : Callback<BasicResponse> {
+                        override fun onResponse(
+                            call: Call<BasicResponse>,
+                            response: Response<BasicResponse>
+                        ) {
+                            if(response.isSuccessful){
+                                Toast.makeText(mContext, "이용해주셔서 감사합니다.",Toast.LENGTH_SHORT).show()
+                                ContextUtil.setLoginToken(mContext, "")//로그아웃시 토큰 지우기
+                                GlobalData.loginUser = null //로그아웃시 글로벌 유저 지우기
+
+                                val myIntnent = Intent(mContext, LoginActivity::class.java)
+                                startActivity(myIntnent)
+                                requireActivity().finishAffinity()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                        }
+
+                    })
+
+                })
+                //취소버튼 선택시
+                .setNegativeButton("취소", null)
+                .show()
+        }
+
     }
 
     override fun setValues() {
