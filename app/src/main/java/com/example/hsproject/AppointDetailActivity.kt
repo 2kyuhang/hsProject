@@ -21,12 +21,15 @@ import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.MapView
 import com.naver.maps.map.overlay.PathOverlay
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
+import java.util.ArrayList
+
 
 class AppointDetailActivity : BaseActivity() {
 
@@ -38,7 +41,7 @@ class AppointDetailActivity : BaseActivity() {
     lateinit var startLatLng : LatLng
     lateinit var endLatLng : LatLng
 
-    var listLatLng : ArrayList<LatLng>? = null
+    var listLatLng = ArrayList<LatLng>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,7 @@ class AppointDetailActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         getAppointmentDetailFromServer()
+        //findWay()
     }
 
     override fun setupEvents() {
@@ -137,22 +141,17 @@ class AppointDetailActivity : BaseActivity() {
             //지도 로딩이 끝난후 얻어낸 온전한 지도 객체 변수화
             val naverMap = it
 
-            val coord = LatLng(37.5670135, 126.9783740)
-            val cameraPosition = CameraPosition(coord, 16.0)
+            val coord = LatLng(appointmentData.startLatitude, appointmentData.longitude)
+            val cameraPosition = CameraPosition(coord, 12.0)
             //처음 시작 위치 보여주기
             val cameraUpdate = CameraUpdate.scrollTo(coord)
             //naverMap.moveCamera(cameraUpdate)
             naverMap.cameraPosition = cameraPosition
 
-/*            val path = PathOverlay()
-            path.coords = listOf(
-                LatLng(37.57152, 126.97714),
-                LatLng(37.56607, 126.98268),
-                LatLng(37.56445, 126.97707),
-                LatLng(37.55855, 126.97822)
-            )
-            path.map = naverMap*/
-
+            val path = PathOverlay()
+            //경로 그리기
+            path.coords = listLatLng
+            path.map = naverMap
 
         }
 
@@ -235,12 +234,21 @@ class AppointDetailActivity : BaseActivity() {
                     Log.d("문제 도착지", "${br.result.path[0].info.lastEndStation}")//첫번째 경로의 도착지*/
 
                     /*Log.d("문제 경로들", "${br.result.path[0].subPath}")//첫번째 경로의 환승정보를 담은 리스트*/
-                    Log.d("문제 ListLatLng", "${br.result.path[0].subPath.size}")
-                    for(num in 1 until br.result.path[0].subPath.size step 2){
-                        Log.d("문제 숫자", "${num}")
-                        listLatLng!!.add(LatLng(br.result.path[0].subPath[num].startX,br.result.path[0].subPath[num].startY))
-                    }
+                    /*Log.d("문제 ListLatLng", "${br.result.path[0].subPath.size}")*/
 
+
+                        for (num in 1 until br.result.path[0].subPath.size step 2) {
+                            /*Log.d("문제 숫자", "${num}")*/
+                            listLatLng!!.add(
+                                LatLng(
+                                    br.result.path[0].subPath[num].startY,
+                                    br.result.path[0].subPath[num].startX
+                                )
+                            )
+                            //Log.d("문제 경로","${num} ${br.result.path[0].subPath[num].startY} ${br.result.path[0].subPath[num].startX}")
+                        }
+
+                    /*Log.d("문제 경로", "${listLatLng}")*/
                     /*
                     Log.d("문제 경로들의 정보", "${br.result.path[0].subPath[1]}")//첫번째 경로의 환승정보를 담은 리스트
                     Log.d("문제 경로들의 정보", "${br.result.path[0].subPath[1].startX}")//첫번째 경로의 환승정보를 담은 리스트
