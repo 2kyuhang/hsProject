@@ -165,9 +165,7 @@ class AppointDetailActivity : BaseActivity() {
             path.map = naverMap
 
         }
-
     }
-
 
     fun getAppointmentDetailFromServer() {
         apiList.getRequestMyDetailAppointment(appointmentData.id.toString())
