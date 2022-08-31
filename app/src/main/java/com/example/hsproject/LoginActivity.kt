@@ -3,7 +3,6 @@ package com.example.hsproject
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import com.example.hsproject.databinding.ActivityLoginBinding
 import com.example.hsproject.datas.BasicResponse
 import com.example.hsproject.utils.ContextUtil
 import com.example.hsproject.utils.GlobalData
-import com.google.gson.JsonObject
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -29,8 +27,6 @@ import retrofit2.Response
 class LoginActivity : BaseActivity() {
 
     lateinit var binding : ActivityLoginBinding
-
-    val TAG = "LoginActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

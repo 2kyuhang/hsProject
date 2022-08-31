@@ -25,6 +25,8 @@ abstract class BaseActivity : AppCompatActivity(){
     lateinit var retrofit : Retrofit
     lateinit var apiList : APIList
 
+    val TAG = javaClass.simpleName
+
     override fun onCreate(savedInstanceState: Bundle?) {//가장 먼저 실행되는 onCreate이다
         super.onCreate(savedInstanceState)
 
