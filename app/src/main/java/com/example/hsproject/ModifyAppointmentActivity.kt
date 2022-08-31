@@ -200,7 +200,7 @@ class ModifyAppointmentActivity : BaseActivity() {
                     if(response.isSuccessful){
                         Toast.makeText(mContext, "약속이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-                        AppointDetailActivity().getAppointmentDetailFromServer()
+                        //AppointDetailActivity().getAppointmentDetailFromServer() //실패시 살리기
                         finish()
                     }
                 }

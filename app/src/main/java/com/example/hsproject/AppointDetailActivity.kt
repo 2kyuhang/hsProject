@@ -53,8 +53,12 @@ class AppointDetailActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        getAppointmentDetailFromServer()
-        //findWay()
+        /*getAppointmentDetailFromServer()
+        *
+        * 도전... 아래 실패하면 아래 두개 지우기*/
+        setValues()
+
+        setupEvents()
     }
 
     override fun setupEvents() {
@@ -229,7 +233,7 @@ class AppointDetailActivity : BaseActivity() {
             override fun onResponse(call: Call<ODSayResponse>, response: Response<ODSayResponse>) {
                 if (response.isSuccessful) {
                     var br = response.body()!!
-
+                    listLatLng.clear()
                     listLatLng.add(LatLng(startLatLng.latitude,startLatLng.longitude))
                     for (num in 1 until br.result.path[0].subPath.size step 2) {
                         /*Log.d("문제 숫자", "${num}")*/
