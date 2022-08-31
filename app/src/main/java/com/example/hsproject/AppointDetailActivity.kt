@@ -38,6 +38,8 @@ class AppointDetailActivity : BaseActivity() {
     lateinit var startLatLng : LatLng
     lateinit var endLatLng : LatLng
 
+    var listLatLng : ArrayList<LatLng>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_appoint_detail)
@@ -114,8 +116,12 @@ class AppointDetailActivity : BaseActivity() {
         binding.titleTxt.text = appointmentData.title
         binding.dateTxt.text = formatter.format(appointmentData.datetime)
 
+        Log.d("문제 지도 LatLng","${appointmentData.startLatitude}, ${appointmentData.startLongitude}")
+        startLatLng = LatLng(appointmentData.startLatitude, appointmentData.startLongitude)
+        endLatLng = LatLng(appointmentData.latitude, appointmentData.longitude)
+
         getAppointmentDetailFromServer()
-        //findWay()
+        findWay()
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //@@@@@@@@@@@@@@@@@@@@@@@@@@지도객체@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -163,10 +169,11 @@ class AppointDetailActivity : BaseActivity() {
                     if (response.isSuccessful) {
 
                         var br = response.body()!!
-                        appointmentData = br.data.appointment as AppointmentData
-                        //odsay에서 사용할 정보를 넣어준다
+                        appointmentData = br.data.appointment
+                        //odsay에서 사용할 정보를 넣어준다 //근데 너무 느려서 인텐트로 받아온거에서 넣기
+/*                        Log.d("문제 지도 LatLng","${appointmentData.startLatitude}, ${appointmentData.startLongitude}")
                         startLatLng = LatLng(appointmentData.startLatitude, appointmentData.startLongitude)
-                        endLatLng = LatLng(appointmentData.latitude, appointmentData.longitude)
+                        endLatLng = LatLng(appointmentData.latitude, appointmentData.longitude)*/
                         setUiformData()
                     }
                 }
@@ -198,8 +205,9 @@ class AppointDetailActivity : BaseActivity() {
 
     fun findWay() {
         val apiKey = "qMKUx9YrEQdTXRPwh4Ot9PEoBMfWy4oDjSsR4PHjCq4"
-        val startLatLng = LatLng(37.6134436427887, 126.926493082645)
-        val endLatLng = LatLng(37.5004198786564, 127.126936754911)
+        //서버에서 받아온 정보를 이미 lateinit var 로 만듬? 그래서 아마 바로 사용해도 될듯
+        /*val startLatLng = LatLng(37.6134436427887, 126.926493082645)
+        val endLatLng = LatLng(37.5004198786564, 127.126936754911)*/
         val odsayRetrofit = Retrofit.Builder()
             .baseUrl("https://api.odsay.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -214,8 +222,30 @@ class AppointDetailActivity : BaseActivity() {
         ).enqueue(object : Callback<ODSayResponse> {
             override fun onResponse(call: Call<ODSayResponse>, response: Response<ODSayResponse>) {
                 if (response.isSuccessful) {
+                    var br = response.body()!!
                     //여기서 정보를 다 저장할거다 레잇이닛 바 로
-                    Log.d("응답", response.body().toString())
+                    /*Log.d("응답", response.body().toString())
+                    Log.d("문제 지하철 버스 버스+지하철", "${br.result.path[0].pathType}")//1지하철, 2버스, 3버스+지하철
+
+                    Log.d("문제 첫번째 경로", "${br.result.path[0]}")//안에 배열인데 나는 첫번쨰꺼 하나만 사용
+                    Log.d("문제 첫번째 경로 총 소요시간", "${br.result.path[0].info.totalTime}")//첫번째 경로의 총 소요시간
+                    Log.d("문제 총 금액", "${br.result.path[0].info.payment}")//첫번째 경로의 총 금액
+                    Log.d("문제 총 거리", "${br.result.path[0].info.totalDistance}")//첫번째 경로의 이동거리
+                    Log.d("문제 출발지", "${br.result.path[0].info.firstStartStation}")//첫번째 경로의 출발지
+                    Log.d("문제 도착지", "${br.result.path[0].info.lastEndStation}")//첫번째 경로의 도착지*/
+
+                    /*Log.d("문제 경로들", "${br.result.path[0].subPath}")//첫번째 경로의 환승정보를 담은 리스트*/
+                    Log.d("문제 ListLatLng", "${br.result.path[0].subPath.size}")
+                    for(num in 1 until br.result.path[0].subPath.size step 2){
+                        Log.d("문제 숫자", "${num}")
+                        listLatLng!!.add(LatLng(br.result.path[0].subPath[num].startX,br.result.path[0].subPath[num].startY))
+                    }
+
+                    /*
+                    Log.d("문제 경로들의 정보", "${br.result.path[0].subPath[1]}")//첫번째 경로의 환승정보를 담은 리스트
+                    Log.d("문제 경로들의 정보", "${br.result.path[0].subPath[1].startX}")//첫번째 경로의 환승정보를 담은 리스트
+                    Log.d("문제 경로들의 정보", "${br.result.path[0].subPath[1].startY}")//첫번째 경로의 환승정보를 담은 리스트*/
+
                 }
             }
 
