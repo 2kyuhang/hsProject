@@ -1,5 +1,6 @@
 package com.example.hsproject.datas
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class DataResponse(
@@ -9,5 +10,7 @@ data class DataResponse(
     val users : List<UserData>,
     val places : List<PlaceData>,
     val appointments : List<AppointmentData>,
-    val appointment : AppointmentData
+    val appointment : AppointmentData,
+    @SerializedName("invited_appointments")
+    val invitedAppointments: List<InvitedAppointmentsData>
 ) :Serializable
