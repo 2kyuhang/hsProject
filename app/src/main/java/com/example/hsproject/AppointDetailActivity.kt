@@ -47,6 +47,7 @@ class AppointDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_appoint_detail)
         setValues()
+
         setupEvents()
     }
 
@@ -111,21 +112,26 @@ class AppointDetailActivity : BaseActivity() {
     }
 
     override fun setValues() {
-        val formatter = SimpleDateFormat("M/dd a h:ss")
-        backIcon.visibility = View.VISIBLE
-        messageIcon.visibility = View.VISIBLE
 
+        val formatter = SimpleDateFormat("M/dd a h:ss")
         //전 페이지에서 하나의 약속정보 가져옴
         appointmentData = intent.getSerializableExtra("appointmentData") as AppointmentData
-        binding.titleTxt.text = appointmentData.title
-        binding.dateTxt.text = formatter.format(appointmentData.datetime)
 
-        Log.d("문제 지도 LatLng","${appointmentData.startLatitude}, ${appointmentData.startLongitude}")
+
+
         startLatLng = LatLng(appointmentData.startLatitude, appointmentData.startLongitude)
         endLatLng = LatLng(appointmentData.latitude, appointmentData.longitude)
 
+        findWay()//@@@!!
         getAppointmentDetailFromServer()
-        findWay()
+
+
+        /*Log.d("문제 지도 LatLng","${appointmentData.startLatitude}, ${appointmentData.startLongitude}")*/
+
+        binding.titleTxt.text = appointmentData.title
+        binding.dateTxt.text = formatter.format(appointmentData.datetime)
+        backIcon.visibility = View.VISIBLE
+        messageIcon.visibility = View.VISIBLE
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //@@@@@@@@@@@@@@@@@@@@@@@@@@지도객체@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -151,7 +157,7 @@ class AppointDetailActivity : BaseActivity() {
 
             val path = PathOverlay()
             //경로 그리기
-            path.coords = listLatLng
+            path.coords = listLatLng//@@@@@@@@@@@@@
             path.map = naverMap
 
         }
@@ -223,6 +229,20 @@ class AppointDetailActivity : BaseActivity() {
             override fun onResponse(call: Call<ODSayResponse>, response: Response<ODSayResponse>) {
                 if (response.isSuccessful) {
                     var br = response.body()!!
+
+                    listLatLng.add(LatLng(startLatLng.latitude,startLatLng.longitude))
+                    for (num in 1 until br.result.path[0].subPath.size step 2) {
+                        /*Log.d("문제 숫자", "${num}")*/
+                        listLatLng!!.add(
+                            LatLng(
+                                br.result.path[0].subPath[num].startY,
+                                br.result.path[0].subPath[num].startX
+                            )
+                        )
+                        //Log.d("문제 경로","${num} ${br.result.path[0].subPath[num].startY} ${br.result.path[0].subPath[num].startX}")
+                    }
+                    listLatLng.add(LatLng(endLatLng.latitude,endLatLng.longitude))
+
                     //여기서 정보를 다 저장할거다 레잇이닛 바 로
                     /*Log.d("응답", response.body().toString())
                     Log.d("문제 지하철 버스 버스+지하철", "${br.result.path[0].pathType}")//1지하철, 2버스, 3버스+지하철
@@ -240,26 +260,13 @@ class AppointDetailActivity : BaseActivity() {
                     }
                     binding.totalTimeTxt.text = "${br.result.path[0].info.totalTime} 분"
                     binding.paymentTxt.text = "(${br.result.path[0].info.payment}원)"
-                    binding.totalDistanceTxt.text = "(${br.result.path[0].info.totalDistance}km)"
+                    binding.totalDistanceTxt.text = "(${br.result.path[0].info.getTotalDistance()})"
                     binding.firstStartStationTxt.text ="${br.result.path[0].info.firstStartStation}"
                     binding.lastEndStationTxt.text = "${br.result.path[0].info.lastEndStation}"
                     binding.lastEndStation2Txt.text = "${br.result.path[0].info.lastEndStation}"
 
                     /*Log.d("문제 경로들", "${br.result.path[0].subPath}")//첫번째 경로의 환승정보를 담은 리스트*/
                     /*Log.d("문제 ListLatLng", "${br.result.path[0].subPath.size}")*/
-
-
-                        for (num in 1 until br.result.path[0].subPath.size step 2) {
-                            /*Log.d("문제 숫자", "${num}")*/
-                            listLatLng!!.add(
-                                LatLng(
-                                    br.result.path[0].subPath[num].startY,
-                                    br.result.path[0].subPath[num].startX
-                                )
-                            )
-                            //Log.d("문제 경로","${num} ${br.result.path[0].subPath[num].startY} ${br.result.path[0].subPath[num].startX}")
-                        }
-
                     /*Log.d("문제 경로", "${listLatLng}")*/
                     /*
                     Log.d("문제 경로들의 정보", "${br.result.path[0].subPath[1]}")//첫번째 경로의 환승정보를 담은 리스트

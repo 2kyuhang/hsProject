@@ -6,4 +6,16 @@ data class InfoData(
     val totalDistance : Double, //총 거리
     val firstStartStation : String,
     val lastEndStation : String
-)
+){
+    fun getTotalDistance():String{
+
+        var result =""
+        if(totalDistance < 1000){
+            result = "${totalDistance}+m"
+        }else {
+            result = "${totalDistance/1000}km"
+        }
+        return result
+    }
+
+}
