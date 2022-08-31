@@ -10,10 +10,6 @@
         android:padding="20dp"
         tools:context=".AppointDetailActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="약속 / 날짜" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -24,41 +20,146 @@
                 android:id="@+id/titleTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="약속이름" />
+                android:text="약속이름"
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/dateTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="날짜" />
+                android:text="날짜"
+                android:textSize="15dp" />
+
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/friendTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인원 : 명"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="들과"
+                android:textSize="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/lastEndStationTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도착지점"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="약속!!"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.naver.maps.map.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="10dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/firstStartStationTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출발지점"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="에서"/>
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/lastEndStation2Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도착지점"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="까지"/>
 
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/friendTxt"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="인원 : 명" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="장소" />
+            <TextView
+                android:id="@+id/pathTypeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="뭐를 타고?"/>
 
-        <fragment
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginVertical="10dp"
-            android:layout_weight="1"
-            android:name="com.naver.maps.map.MapFragment"/>
+            <TextView
+                android:id="@+id/totalDistanceTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 이동거리"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="경로 알려주자"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="타고"/>
+
+            <TextView
+                android:id="@+id/totalTimeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="예상 소요시간"/>
+
+            <TextView
+                android:id="@+id/paymentTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="예상 금액?"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소요!"/>
+
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

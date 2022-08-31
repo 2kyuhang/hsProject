@@ -141,7 +141,8 @@ class AppointDetailActivity : BaseActivity() {
             //지도 로딩이 끝난후 얻어낸 온전한 지도 객체 변수화
             val naverMap = it
 
-            val coord = LatLng(appointmentData.startLatitude, appointmentData.longitude)
+            //val coord = LatLng(listLatLng[0].latitude,listLatLng[0].longitude)
+            val coord = LatLng(appointmentData.latitude, appointmentData.longitude)
             val cameraPosition = CameraPosition(coord, 12.0)
             //처음 시작 위치 보여주기
             val cameraUpdate = CameraUpdate.scrollTo(coord)
@@ -225,13 +226,24 @@ class AppointDetailActivity : BaseActivity() {
                     //여기서 정보를 다 저장할거다 레잇이닛 바 로
                     /*Log.d("응답", response.body().toString())
                     Log.d("문제 지하철 버스 버스+지하철", "${br.result.path[0].pathType}")//1지하철, 2버스, 3버스+지하철
-
                     Log.d("문제 첫번째 경로", "${br.result.path[0]}")//안에 배열인데 나는 첫번쨰꺼 하나만 사용
                     Log.d("문제 첫번째 경로 총 소요시간", "${br.result.path[0].info.totalTime}")//첫번째 경로의 총 소요시간
                     Log.d("문제 총 금액", "${br.result.path[0].info.payment}")//첫번째 경로의 총 금액
                     Log.d("문제 총 거리", "${br.result.path[0].info.totalDistance}")//첫번째 경로의 이동거리
                     Log.d("문제 출발지", "${br.result.path[0].info.firstStartStation}")//첫번째 경로의 출발지
                     Log.d("문제 도착지", "${br.result.path[0].info.lastEndStation}")//첫번째 경로의 도착지*/
+
+                    when(br.result.path[0].pathType){
+                        1 -> binding.pathTypeTxt.text = "지하철"
+                        2 -> binding.pathTypeTxt.text = "버스"
+                        else -> binding.pathTypeTxt.text = "지하철 + 버스"
+                    }
+                    binding.totalTimeTxt.text = "${br.result.path[0].info.totalTime} 분"
+                    binding.paymentTxt.text = "(${br.result.path[0].info.payment}원)"
+                    binding.totalDistanceTxt.text = "(${br.result.path[0].info.totalDistance}km)"
+                    binding.firstStartStationTxt.text ="${br.result.path[0].info.firstStartStation}"
+                    binding.lastEndStationTxt.text = "${br.result.path[0].info.lastEndStation}"
+                    binding.lastEndStation2Txt.text = "${br.result.path[0].info.lastEndStation}"
 
                     /*Log.d("문제 경로들", "${br.result.path[0].subPath}")//첫번째 경로의 환승정보를 담은 리스트*/
                     /*Log.d("문제 ListLatLng", "${br.result.path[0].subPath.size}")*/

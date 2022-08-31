@@ -268,11 +268,11 @@ class ModifyAppointmentActivity : BaseActivity() {
             cameraLongitude = (appointmentData.longitude+appointmentData.startLongitude)/2
             val senterCoord = LatLng(cameralatitude, cameraLongitude)
             val cameraPosition = CameraPosition(senterCoord, 12.0)
-
+/*
             Log.d("문제 출발","${appointmentData.startLatitude} ${appointmentData.startLongitude}")
             Log.d("문제 도착","${appointmentData.latitude} ${appointmentData.longitude}")
             Log.d("문제 mStartPlace","${mStartPlace.latitude} ${mStartPlace.longitude}")
-
+*/
             mNaverMap!!.cameraPosition = cameraPosition
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
