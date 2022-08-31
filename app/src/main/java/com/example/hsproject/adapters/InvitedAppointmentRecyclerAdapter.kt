@@ -1,11 +1,13 @@
 package com.example.hsproject.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hsproject.InvitedAppointDetailActivity
 import com.example.hsproject.R
 import com.example.hsproject.datas.InvitedAppointmentsData
 import java.text.SimpleDateFormat
@@ -28,9 +30,9 @@ class InvitedAppointmentRecyclerAdapter (
             memberTxt.text = "참여 인원 : ${item.invitedFriends.size}명"
 
             itemView.setOnClickListener {
-/*                var myIntent = Intent(mContext, AppointDetailActivity::class.java)
+                var myIntent = Intent(mContext, InvitedAppointDetailActivity::class.java)
                 myIntent.putExtra("invitedAppointmentData", item)
-                mContext.startActivity(myIntent)*/
+                mContext.startActivity(myIntent)
             }
         }
     }

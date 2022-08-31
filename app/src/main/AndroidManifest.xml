@@ -18,6 +18,12 @@
         android:theme="@style/Theme.HsProject"
         tools:targetApi="31">
         <activity
+            android:name=".InvitedChattingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InvitedAppointDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ModifyAppointmentActivity"
             android:exported="false" />
         <activity
