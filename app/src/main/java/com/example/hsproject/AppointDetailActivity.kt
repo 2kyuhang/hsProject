@@ -31,7 +31,7 @@ import java.util.ArrayList
 class AppointDetailActivity : BaseActivity() {
 
     lateinit var binding: ActivityAppointDetailBinding
-    lateinit var mapView: MapView
+    lateinit var naverMap: NaverMap
 
     lateinit var appointmentData: AppointmentData
 
@@ -39,8 +39,6 @@ class AppointDetailActivity : BaseActivity() {
     lateinit var endLatLng : LatLng
 
     var listLatLng = ArrayList<LatLng>()
-
-    lateinit var mNaverMap : NaverMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +54,7 @@ class AppointDetailActivity : BaseActivity() {
         *
         * 도전... 아래 실패하면 아래 두개 지우기*/
         setValues()
+
         setupEvents()
     }
 
@@ -90,8 +89,8 @@ class AppointDetailActivity : BaseActivity() {
                                 Toast.makeText(mContext, "약속이 삭제되었습니다.", Toast.LENGTH_SHORT)
                                     .show()
 
-                                //약속 삭제했으니깐 이전 프레그먼트 새로고침  // fragment로 casting 불가
-//                                (mContext as MyAppointmentFragment).getAppointmentDataFromServer()
+                                //약속 삭제했으니깐 이전 프레그먼트 새로고침
+                                (mContext as MyAppointmentFragment).getAppointmentDataFromServer()
                                 finish()
                             }
 
@@ -146,7 +145,7 @@ class AppointDetailActivity : BaseActivity() {
         //네이버 맵 객체화
         mapFragment.getMapAsync {
             //지도 로딩이 끝난후 얻어낸 온전한 지도 객체 변수화
-            mNaverMap = it
+            naverMap = it
 
             //val coord = LatLng(listLatLng[0].latitude,listLatLng[0].longitude)
             val coord = LatLng(appointmentData.latitude, appointmentData.longitude)
@@ -154,10 +153,9 @@ class AppointDetailActivity : BaseActivity() {
             //처음 시작 위치 보여주기
             val cameraUpdate = CameraUpdate.scrollTo(coord)
             //naverMap.moveCamera(cameraUpdate)
-            mNaverMap.cameraPosition = cameraPosition
+            naverMap.cameraPosition = cameraPosition
 
-//            네이버 맵 멤버 변수로 활용 (Path) > 네이버 맵이 객체화 된 후에 Odsay API 통신 진행
-            findWay()//@@@!!
+            findWay()
         }
     }
 
@@ -194,14 +192,14 @@ class AppointDetailActivity : BaseActivity() {
         var friend = ""
         if (appointmentData.invitedFriends != null) {
             for (UserData in appointmentData.invitedFriends) {
-                friend += UserData.nickname + ", "
+                friend += UserData.nickname.toString() + ", "
             }
             friend = friend.substring(0, friend.length - 2)
 
         }
 
         binding.friendTxt.text =
-            "인원 : ${appointmentData.invitedFriends.size}명 (${friend})"
+            "인원 : ${appointmentData.invitedFriends.size.toString()}명 (${friend})"
     }
 
 
@@ -225,29 +223,46 @@ class AppointDetailActivity : BaseActivity() {
             override fun onResponse(call: Call<ODSayResponse>, response: Response<ODSayResponse>) {
                 if (response.isSuccessful) {
                     var br = response.body()!!
-//                    총 도착지 700m 이내인 경우 result 값이 null
-//                    [문제] result값이 null인경우 => "error"로 내려온 경우에 대비한 분기처리 필요
 
-                    listLatLng.clear()
-                    listLatLng.add(LatLng(startLatLng.latitude,startLatLng.longitude))
-                    for (num in 1 until br.result.path[0].subPath.size step 2) {
-                        /*Log.d("문제 숫자", "${num}")*/
-                        listLatLng!!.add(
-                            LatLng(
-                                br.result.path[0].subPath[num].startY,
-                                br.result.path[0].subPath[num].startX
+                    if(br.result != null){
+                        val result = br.result!!
+
+                        listLatLng.clear()
+                        listLatLng.add(LatLng(startLatLng.latitude,startLatLng.longitude))
+                        for (num in 1 until result.path[0].subPath.size step 2) {
+                            /*Log.d("문제 숫자", "${num}")*/
+                            listLatLng!!.add(
+                                LatLng(
+                                    result.path[0].subPath[num].startY,
+                                    result.path[0].subPath[num].startX
+                                )
                             )
-                        )
-                        //Log.d("문제 경로","${num} ${br.result.path[0].subPath[num].startY} ${br.result.path[0].subPath[num].startX}")
-                    }
-                    listLatLng.add(LatLng(endLatLng.latitude,endLatLng.longitude))
+                            //Log.d("문제 경로","${num} ${br.result.path[0].subPath[num].startY} ${br.result.path[0].subPath[num].startX}")
+                        }
+                        listLatLng.add(LatLng(endLatLng.latitude,endLatLng.longitude))
 
-//                    path 없는 상황 대비해서 Odsay에서 값을 내려줄때만, 경로를 찍는 로직
-                    val path = PathOverlay()
-                    //경로 그리기
-                    Log.d(TAG, listLatLng.toString())
-                    path.coords = listLatLng//@@@@@@@@@@@@@
-                    path.map = mNaverMap
+                        //오디세이에서 정보를 받아올 경우에만 경로를 그려주기
+                        val path = PathOverlay()
+                        //경로 그리기
+                        path.coords = listLatLng//@@@@@@@@@@@@@
+                        path.map = naverMap
+
+                        when(result.path[0].pathType){
+                            1 -> binding.pathTypeTxt.text = "지하철"
+                            2 -> binding.pathTypeTxt.text = "버스"
+                            else -> binding.pathTypeTxt.text = "지하철 + 버스"
+                        }
+                        binding.totalTimeTxt.text = "${result.path[0].info.totalTime} 분"
+                        binding.paymentTxt.text = "(${result.path[0].info.payment}원)"
+                        binding.totalDistanceTxt.text = "(${result.path[0].info.getTotalDistance()})"
+                        binding.firstStartStationTxt.text ="${result.path[0].info.firstStartStation}"
+                        binding.lastEndStationTxt.text = "${result.path[0].info.lastEndStation}"
+                        binding.lastEndStation2Txt.text = "${result.path[0].info.lastEndStation}"
+
+                    }
+
+
+
 
                     //여기서 정보를 다 저장할거다 레잇이닛 바 로
                     /*Log.d("응답", response.body().toString())
@@ -259,17 +274,7 @@ class AppointDetailActivity : BaseActivity() {
                     Log.d("문제 출발지", "${br.result.path[0].info.firstStartStation}")//첫번째 경로의 출발지
                     Log.d("문제 도착지", "${br.result.path[0].info.lastEndStation}")//첫번째 경로의 도착지*/
 
-                    when(br.result.path[0].pathType){
-                        1 -> binding.pathTypeTxt.text = "지하철"
-                        2 -> binding.pathTypeTxt.text = "버스"
-                        else -> binding.pathTypeTxt.text = "지하철 + 버스"
-                    }
-                    binding.totalTimeTxt.text = "${br.result.path[0].info.totalTime} 분"
-                    binding.paymentTxt.text = "(${br.result.path[0].info.payment}원)"
-                    binding.totalDistanceTxt.text = "(${br.result.path[0].info.getTotalDistance()})"
-                    binding.firstStartStationTxt.text ="${br.result.path[0].info.firstStartStation}"
-                    binding.lastEndStationTxt.text = "${br.result.path[0].info.lastEndStation}"
-                    binding.lastEndStation2Txt.text = "${br.result.path[0].info.lastEndStation}"
+
 
                     /*Log.d("문제 경로들", "${br.result.path[0].subPath}")//첫번째 경로의 환승정보를 담은 리스트*/
                     /*Log.d("문제 ListLatLng", "${br.result.path[0].subPath.size}")*/
