@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import kotlin.reflect.typeOf
 
 class SettingFragment : BaseFragment(){
 
@@ -130,6 +132,60 @@ class SettingFragment : BaseFragment(){
         }
 
         //시간변경
+        binding.readyMinuteLayout.setOnClickListener {
+            // 뷰 만든거 변수화
+            val customView = LayoutInflater.from(mContext).inflate(R.layout.custom_alert_dialog, null)
+
+
+            //토큰 가져오기
+            val token = ContextUtil.getLoginToken(mContext)
+
+            //알럿 창!! 경고창!!
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("준비시간 변경")
+                .setView(customView) // 뷰 넣기
+                //확인버튼 선택시
+                .setPositiveButton("변경", DialogInterface.OnClickListener { dialogInterface, i ->
+                    //customView 에 있는 inputEdt를 찾아와서 그 내용값을 inputNick에 담아서 서버로 전달
+
+                    //알럿창의 입력값 가져오기
+                    val inputEdt : EditText = customView.findViewById<EditText>(R.id.inputEdt)
+                    //inputEdt.setInputExtras()
+
+                    val inputReadyMinute = inputEdt.text.toString()
+
+                    if(inputReadyMinute.toInt() <= 30){
+                        Toast.makeText(mContext, "30분 이후 시간(숫자)만 입력 가능합니다.",Toast.LENGTH_SHORT)
+                            .show()
+                        return@OnClickListener
+                    }
+
+                    //inputNick 변수 생성 > EditText 값을 대입(inputNick이 공백일 경우 toast전달 및 클릭 리스너 탈출)
+                    apiList.patchRequestEditUserData("ready_minute", inputReadyMinute).enqueue(object :Callback<BasicResponse>{
+                        override fun onResponse(
+                            call: Call<BasicResponse>,
+                            response: Response<BasicResponse>
+                        ) {
+                            if(response.isSuccessful){ //200시
+                                Toast.makeText(mContext, "준비 시간이 변경되었습니다.",Toast.LENGTH_SHORT)
+                                    .show()
+
+                                GlobalData.loginUser = response.body()!!.data.user
+                                //TextView에 넣어주기
+                                binding.readyMinuteTxt.text = GlobalData.loginUser!!.readyMinute.toString()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                        }
+
+                    })
+                })
+                //취소버튼 선택시
+                .setNegativeButton("취소", null)
+                .show()
+        }
 
         //비밀번호 변경
         binding.changePwLayout.setOnClickListener {
