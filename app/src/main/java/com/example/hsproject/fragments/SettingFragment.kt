@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +23,7 @@ import com.example.hsproject.databinding.FragmentSettingBinding
 import com.example.hsproject.datas.BasicResponse
 import com.example.hsproject.utils.ContextUtil
 import com.example.hsproject.utils.GlobalData
+import com.example.hsproject.utils.SizeUtil.Companion.writeBitmap
 import com.example.hsproject.utils.URIPathHelper
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
@@ -73,7 +76,7 @@ class SettingFragment : BaseFragment(){
 
             TedPermission.create()
                 .setPermissionListener(pl)
-                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .check()
 
         }
@@ -281,6 +284,25 @@ class SettingFragment : BaseFragment(){
                 //Uri 실제 첨부 가능한 파일 형태로 변환해야한다 서버에 넣기 위해
                 //File객체를 실제 Path를 통해 만들어준다
                 val file = File(URIPathHelper().getPath(mContext, selectedImgUri))
+
+                //우리가 원하는 용량으로 줄이기
+                //val fileSize = file.length()//내 사진 Size 확인
+                val maxImgSize = 1024000 //내가 원하는 사이즈임
+
+                //원하는 용량이 될때까지 반복해서 용량 압축할거임
+                while(true){
+                    val bitmap = BitmapFactory.decodeFile(file.path)
+                    var quality = 80
+                    //file.writeBitmap(bitmap, Bitmap.CompressFormat.JPEG, quality)//80프로로 압축
+                    if(file.length() > maxImgSize){
+                        quality -= 20 // 80-20 = 60 프로로 압축
+                        file.writeBitmap(bitmap, Bitmap.CompressFormat.JPEG, quality)//60프로로 압축
+                    }else{
+                        break
+                    }
+                }
+
+
 
                 //위 완성된 파일을 Retrofit 에 첨부 가능한 RequestBody 형태로 가공
                 val fileReqBody = RequestBody.create(MediaType.get("image/*"), file)
