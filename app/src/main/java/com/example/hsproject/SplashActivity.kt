@@ -51,6 +51,7 @@ class SplashActivity : BaseActivity() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
                 Log.d("DeviceToken", it.result)
             //dqeMkKmNS0qJ-6xxxeBKn9:APA91bF_m97Cqj6GaopRsqPswFMyJM7QJG4ip8Y6NJrYSTXJLj83Rm5HdDMn37UT_ySqbH7heeQ0qggFbwSb-F-mwQusbQX4-B6Ub2jDe2QVXFeWM8XFS0xyD_0AFIhvgrlFprJycyPR
+            ContextUtil.setLoginToken(mContext, it.result)
         }
 
         getKeyHash()
