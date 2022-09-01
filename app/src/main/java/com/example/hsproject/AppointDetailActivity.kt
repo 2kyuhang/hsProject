@@ -159,7 +159,8 @@ class AppointDetailActivity : BaseActivity() {
     }
 
     fun getAppointmentDetailFromServer() {
-        apiList.getRequestMyDetailAppointment(appointmentData.id.toString())
+        apiList.getRequestMyDetailAppointment(
+            appointmentData.id.toString())
             .enqueue(object : Callback<BasicResponse> {
                 override fun onResponse(
                     call: Call<BasicResponse>,
