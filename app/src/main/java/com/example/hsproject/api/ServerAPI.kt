@@ -12,11 +12,8 @@ class ServerAPI {
 
     companion object{
         private val baseUrl = "https://keepthetime.xyz"
-
         private var retrofit : Retrofit? = null
-
         fun getRetrofit(context : Context) : Retrofit {
-
             //API요청이 발생하면 => 가로채서 => 헤더를 추가
             //인터셉터@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             val interceptor = Interceptor{

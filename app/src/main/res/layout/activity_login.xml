@@ -8,7 +8,6 @@
         tools:context=".LoginActivity"
         android:padding="10dp"
         android:orientation="vertical"
-
         >
 
         <TextView

@@ -35,7 +35,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-import kotlin.reflect.typeOf
 
 class SettingFragment : BaseFragment(){
 
@@ -135,7 +134,9 @@ class SettingFragment : BaseFragment(){
         binding.readyMinuteLayout.setOnClickListener {
             // 뷰 만든거 변수화
             val customView = LayoutInflater.from(mContext).inflate(R.layout.custom_alert_dialog, null)
-
+            //알럿창의 입력값 가져오기
+            val inputEdt = customView.findViewById<EditText>(R.id.inputEdt)
+            inputEdt.inputType = InputType.TYPE_CLASS_NUMBER
 
             //토큰 가져오기
             val token = ContextUtil.getLoginToken(mContext)
@@ -148,9 +149,6 @@ class SettingFragment : BaseFragment(){
                 .setPositiveButton("변경", DialogInterface.OnClickListener { dialogInterface, i ->
                     //customView 에 있는 inputEdt를 찾아와서 그 내용값을 inputNick에 담아서 서버로 전달
 
-                    //알럿창의 입력값 가져오기
-                    val inputEdt : EditText = customView.findViewById<EditText>(R.id.inputEdt)
-                    //inputEdt.setInputExtras()
 
                     val inputReadyMinute = inputEdt.text.toString()
 
@@ -172,7 +170,7 @@ class SettingFragment : BaseFragment(){
 
                                 GlobalData.loginUser = response.body()!!.data.user
                                 //TextView에 넣어주기
-                                binding.readyMinuteTxt.text = GlobalData.loginUser!!.readyMinute.toString()
+                                binding.readyMinuteTxt.text = GlobalData.loginUser!!.readyMinute.toString()+"분"
                             }
                         }
 

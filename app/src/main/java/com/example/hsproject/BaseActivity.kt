@@ -2,6 +2,7 @@ package com.example.hsproject
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
@@ -20,6 +21,7 @@ abstract class BaseActivity : AppCompatActivity(){
     lateinit var titleTxt : TextView
     lateinit var addIcon : ImageView
     lateinit var messageIcon : ImageView
+    lateinit var frameLayout : FrameLayout
 
 
     lateinit var retrofit : Retrofit
@@ -62,6 +64,7 @@ abstract class BaseActivity : AppCompatActivity(){
         addIcon = defaultActionBar.customView.findViewById<ImageView>(R.id.addIcon)
         backIcon = defaultActionBar.customView.findViewById<ImageView>(R.id.backIcon)
         messageIcon = defaultActionBar.customView.findViewById<ImageView>(R.id.messageIcon)
+        frameLayout = defaultActionBar.customView.findViewById<FrameLayout>(R.id.frameLayout)
 
         backIcon.setOnClickListener { finish() }
     }
