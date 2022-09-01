@@ -16,14 +16,14 @@ class ContextUtil {
             //메모장 열기
             val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
             //메모장 작성하기 //스트링 넣을거 이름/ 토큰 넣기
-            Log.d("문제 setLoginToken 들어감 ","${token}")
+            //ㄴLog.d("문제 setLoginToken 들어감 ","${token}")
             pref.edit().putString(LOGIN_TOKEN, token).apply()
         }
 
         fun getLoginToken(context : Context):String{
             //메모장 열기
             val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
-            Log.d("문제 getLoginToken 들어감 ","${pref.getString(LOGIN_TOKEN, "")}")
+            //Log.d("문제 getLoginToken 들어감 ","${pref.getString(LOGIN_TOKEN, "")}")
             return pref.getString(LOGIN_TOKEN, "")!! //없으면 빈칸 던져줌
         }
 
