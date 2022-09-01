@@ -1,5 +1,6 @@
 package com.example.hsproject.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import com.example.hsproject.adapters.AppointmentRecyclerAdapter
 import com.example.hsproject.databinding.FragmentMyAppointmentBinding
 import com.example.hsproject.datas.AppointmentData
 import com.example.hsproject.datas.BasicResponse
+import com.example.hsproject.utils.ContextUtil
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,6 +40,7 @@ class MyAppointmentFragment : BaseFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setEvent()
         setValues()
     }

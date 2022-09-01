@@ -36,6 +36,7 @@ class SplashActivity : BaseActivity() {
                 if(response.isSuccessful){
                     isTokenOk = true //토큰이 있다는것에 true 넣어주고
                     GlobalData.loginUser = response.body()!!.data.user //로그인시 글로벌에 담아 자유롭게 사용한다
+                    Log.d("문제 토큰", "${token}")
                 }
             }
 
@@ -49,9 +50,7 @@ class SplashActivity : BaseActivity() {
     override fun setValues() {
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
-                Log.d("DeviceToken", it.result)
-            //dqeMkKmNS0qJ-6xxxeBKn9:APA91bF_m97Cqj6GaopRsqPswFMyJM7QJG4ip8Y6NJrYSTXJLj83Rm5HdDMn37UT_ySqbH7heeQ0qggFbwSb-F-mwQusbQX4-B6Ub2jDe2QVXFeWM8XFS0xyD_0AFIhvgrlFprJycyPR
-            ContextUtil.setLoginToken(mContext, it.result)
+            ContextUtil.setDeviceToken(mContext, it.result)
         }
 
         getKeyHash()
@@ -74,7 +73,7 @@ class SplashActivity : BaseActivity() {
                     startActivity(myIntent)
                 }
                 finish()
-            }, 2000)
+            }, 2500)
     }
     fun getKeyHash(){
         var keyHash = Utility.getKeyHash(this)

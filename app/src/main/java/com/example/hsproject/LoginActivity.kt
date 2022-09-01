@@ -59,9 +59,10 @@ class LoginActivity : BaseActivity() {
                         //로그인 화면에서 자동로그인 체크시
                         ContextUtil.setAutoLogin(mContext, binding.autoLoginCb.isChecked)
                         //로그인시 토큰 정보를 SharedPreferences 에 담아두고 사용한다
+                        //Log.d("로그인 문제 토큼","${br.data.token}")
                         ContextUtil.setLoginToken(mContext, br.data.token)
 
-                        Log.d("문제", "${binding.autoLoginCb.isChecked} ${br.data.token}")
+                        //Log.d("문제", "${binding.autoLoginCb.isChecked} ${br.data.token}")
 
                         Toast.makeText(mContext, "${br.data.user.nickname}님 환영합니다.", Toast.LENGTH_SHORT).show()
 

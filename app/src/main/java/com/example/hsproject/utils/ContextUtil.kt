@@ -1,13 +1,14 @@
 package com.example.hsproject.utils
 
 import android.content.Context
+import android.util.Log
 
 class ContextUtil {
 
     companion object {
 
         private val prefName = "KeepThePref"
-        private val LOGIN_TOKEN = "LOGIN_KOKEN"
+        private val LOGIN_TOKEN = "LOGIN_TOKEN"
         private val AUTO_LOGIN = "AUTO_LOGIN"
         private val DEVICE_TOKEN = "DEVICE_TOKEN"
 
@@ -15,12 +16,14 @@ class ContextUtil {
             //메모장 열기
             val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
             //메모장 작성하기 //스트링 넣을거 이름/ 토큰 넣기
+            Log.d("문제 setLoginToken 들어감 ","${token}")
             pref.edit().putString(LOGIN_TOKEN, token).apply()
         }
 
         fun getLoginToken(context : Context):String{
             //메모장 열기
             val pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+            Log.d("문제 getLoginToken 들어감 ","${pref.getString(LOGIN_TOKEN, "")}")
             return pref.getString(LOGIN_TOKEN, "")!! //없으면 빈칸 던져줌
         }
 
