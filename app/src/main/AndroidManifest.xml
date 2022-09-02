@@ -58,7 +58,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+            android:theme="@style/Theme.HsProject.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

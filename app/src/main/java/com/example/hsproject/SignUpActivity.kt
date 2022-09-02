@@ -48,6 +48,12 @@ class SignUpActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
+            //비밀번호 8자 이상
+            if(inputPw.length >=8){
+                Toast.makeText(mContext, "비밀번호는 8자리 이상 입력해 주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             //닉네임 공백
             val inputNick = binding.nickEdt.text.toString()
             if(inputNick.isBlank()){
@@ -71,7 +77,7 @@ class SignUpActivity : BaseActivity() {
                 ) {
                     if(response.isSuccessful){
                         val br = response.body()!!
-                        Toast.makeText(mContext, "회원가입을 축하합니다..", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mContext, "회원가입을 축하합니다.", Toast.LENGTH_SHORT).show()
                         finish()
                     }else {
 

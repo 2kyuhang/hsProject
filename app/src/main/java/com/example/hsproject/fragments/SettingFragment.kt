@@ -103,12 +103,19 @@ class SettingFragment : BaseFragment(){
 
                     val inputNick = inputEdt.text.toString()
 
+                    if(inputNick.length < 2){
+                        Toast.makeText(mContext, "2자 이상의 닉네임을 입력해주세요.",Toast.LENGTH_SHORT)
+                            .show()
+                        return@OnClickListener
+                    }
+
                     //inputNick 변수 생성 > EditText 값을 대입(inputNick이 공백일 경우 toast전달 및 클릭 리스너 탈출)
                         apiList.patchRequestEditUserData("nickname", inputNick).enqueue(object :Callback<BasicResponse>{
                             override fun onResponse(
                                 call: Call<BasicResponse>,
                                 response: Response<BasicResponse>
                             ) {
+
                                 if(response.isSuccessful){ //200시
                                     Toast.makeText(mContext, "닉네임이 변경되었습니다.",Toast.LENGTH_SHORT)
                                         .show()
@@ -116,6 +123,9 @@ class SettingFragment : BaseFragment(){
                                     GlobalData.loginUser = response.body()!!.data.user
                                     //TextView에 넣어주기
                                     binding.nickTxt.text = GlobalData.loginUser!!.nickname
+                                }else{
+                                    Toast.makeText(mContext, "중복된 닉네임입니다.",Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                             }
 

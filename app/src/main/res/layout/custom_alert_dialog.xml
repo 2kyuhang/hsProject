@@ -12,7 +12,7 @@
         android:id="@+id/inputEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="변경할 값 입력"
+        android:hint="변경할 값 입력(2자 이상)"
 
         android:singleLine="true"/>
 

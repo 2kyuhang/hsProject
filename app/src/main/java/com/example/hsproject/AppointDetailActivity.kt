@@ -89,7 +89,9 @@ class AppointDetailActivity : BaseActivity() {
                                     .show()
 
                                 //약속 삭제했으니깐 이전 프레그먼트 새로고침
-                                (mContext as MyAppointmentFragment).getAppointmentDataFromServer()
+                                //이건 못불러드린다 제발 그만!!
+                                //프레그먼트는 컨텍스트에서 형변환이 불가능하다.....
+                                //(mContext as MyAppointmentFragment).getAppointmentDataFromServer()
                                 finish()
                             }
 
