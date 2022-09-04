@@ -1,69 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:padding="10dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImg"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@mipmap/ic_launcher_round" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/nickTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="친구 닉네임" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_launcher_round" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileImg2"
-                android:visibility="gone"
-                android:layout_marginEnd="3dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/ic_launcher_round"/>
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/emailTxt"
+                android:id="@+id/nickTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이메일자리" />
+                android:text="친구 닉네임" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileImg2"
+                    android:visibility="gone"
+                    android:layout_marginEnd="3dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/ic_launcher_round"/>
+
+                <TextView
+                    android:id="@+id/emailTxt"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="이메일자리" />
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/addFriendBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
         android:visibility="gone"
         android:text="친구 요청"/>
+    <!--android:visibility="gone"-->
 
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:layout_gravity="right|center_vertical"
         android:orientation="horizontal">
 
         <Button
@@ -83,4 +91,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</FrameLayout>

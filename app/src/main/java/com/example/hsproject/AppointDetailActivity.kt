@@ -17,6 +17,7 @@ import com.example.hsproject.fragments.MyAppointmentFragment
 import com.example.hsproject.utils.ContextUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.PathOverlay
 
 import retrofit2.Call
@@ -230,6 +231,16 @@ class AppointDetailActivity : BaseActivity() {
                         val result = br.result!!
 
                         listLatLng.clear()
+                        //시작 좌표에 출발 정보 찍기
+                        val infoWindow = InfoWindow()
+                        infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext) {
+                            override fun getText(infoWindow: InfoWindow): CharSequence {
+                                return "출발"
+                            }
+                        }
+                        infoWindow.position = LatLng(startLatLng.latitude,startLatLng.longitude)
+                        infoWindow.open(naverMap)
+                        //시작 좌표에 출발 정보 찍기
                         listLatLng.add(LatLng(startLatLng.latitude,startLatLng.longitude))
                         for (num in 1 until result.path[0].subPath.size step 2) {
                             /*Log.d("문제 숫자", "${num}")*/
@@ -241,6 +252,16 @@ class AppointDetailActivity : BaseActivity() {
                             )
                             //Log.d("문제 경로","${num} ${br.result.path[0].subPath[num].startY} ${br.result.path[0].subPath[num].startX}")
                         }
+                        //종료 좌표 찍기
+                        val infoWindow2 = InfoWindow()
+                        infoWindow2.adapter = object : InfoWindow.DefaultTextAdapter(mContext) {
+                            override fun getText(infoWindow: InfoWindow): CharSequence {
+                                return "도착"
+                            }
+                        }
+                        infoWindow2.position = LatLng(endLatLng.latitude,endLatLng.longitude)
+                        infoWindow2.open(naverMap)
+                        //종료 좌표 찍기
                         listLatLng.add(LatLng(endLatLng.latitude,endLatLng.longitude))
 
                         //오디세이에서 정보를 받아올 경우에만 경로를 그려주기

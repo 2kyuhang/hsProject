@@ -219,9 +219,13 @@ class SettingFragment : BaseFragment(){
                 .setView(customView) // 뷰 넣기
                 //확인버튼 선택시
                 .setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
-
                     val currentPw = currentPwEdt.text.toString()
                     val newPw = newPwEdt.text.toString()
+
+                    if(newPw.length < 4){
+                        Toast.makeText(mContext,"비밀번호는 4자리 이상이어야 합니다.",Toast.LENGTH_SHORT).show()
+                        return@OnClickListener
+                    }
 
                     if(currentPw == newPw){
                         Toast.makeText(mContext,"같은 비밀번호로 변경할 수 없습니다.",Toast.LENGTH_SHORT).show()
@@ -243,7 +247,8 @@ class SettingFragment : BaseFragment(){
                         }
 
                         override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-
+                            Toast.makeText(mContext, "비밀번호 변경에 실패하였습니다.",Toast.LENGTH_SHORT)
+                                .show()
                         }
 
                     })

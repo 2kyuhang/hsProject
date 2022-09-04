@@ -7,8 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.ViewBindings
 import com.example.hsproject.AddAppointmentActivity
 import com.example.hsproject.R
 import com.example.hsproject.adapters.AppointmentRecyclerAdapter
@@ -60,6 +64,7 @@ class MyAppointmentFragment : BaseFragment(){
         mAppointAdapter = AppointmentRecyclerAdapter(mContext, mAppointList)
         binding.appointmentRecyclerView.adapter = mAppointAdapter
         binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
+
     }
 
     fun getAppointmentDataFromServer() {
@@ -70,6 +75,12 @@ class MyAppointmentFragment : BaseFragment(){
                     mAppointList.clear()
 
                     mAppointList.addAll(response.body()!!.data.appointments)
+
+                    Log.d("문제 리스트 사이즈","${mAppointList.size}")
+                    if(mAppointList.size < 1){
+                        val addBtn = binding.addAppointBtn
+                        addBtn.visibility = View.VISIBLE
+                    }
 
                     mAppointAdapter.notifyDataSetChanged()
                 }

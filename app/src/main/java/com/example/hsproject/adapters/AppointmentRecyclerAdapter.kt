@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hsproject.AppointDetailActivity
@@ -19,6 +20,12 @@ class AppointmentRecyclerAdapter(
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(item : AppointmentData) {
+/*            Log.d("문제 타이틀", "${item.title}")
+            if(item.id.toString() == ""){
+                val addBtn = itemView.findViewById<Button>(R.id.addAppointBtn)
+                addBtn.visibility = View.VISIBLE
+            }*/
+
             val titleTxt = itemView.findViewById<TextView>(R.id.titleTxt)
             val dateTimeTxt = itemView.findViewById<TextView>(R.id.dateTimeTxt)
             val placeTxt = itemView.findViewById<TextView>(R.id.placeTxt)

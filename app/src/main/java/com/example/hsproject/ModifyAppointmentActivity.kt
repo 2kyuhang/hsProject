@@ -2,6 +2,7 @@ package com.example.hsproject
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -201,7 +202,10 @@ class ModifyAppointmentActivity : BaseActivity() {
                         Toast.makeText(mContext, "약속이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
                         //AppointDetailActivity().getAppointmentDetailFromServer() //실패시 살리기
-                        finish()
+                        //finish()
+                        val myIntent = Intent(mContext, MainActivity::class.java)
+                        startActivity(myIntent)
+                        finishAffinity()
                     }
                 }
 
