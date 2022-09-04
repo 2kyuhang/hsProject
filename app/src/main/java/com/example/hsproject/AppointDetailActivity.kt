@@ -252,6 +252,7 @@ class AppointDetailActivity : BaseActivity() {
                                 return "도착"
                             }
                         }
+
                         infoWindow2.position = LatLng(endLatLng.latitude,endLatLng.longitude)
                         infoWindow2.open(naverMap)
                         //종료 좌표 찍기
