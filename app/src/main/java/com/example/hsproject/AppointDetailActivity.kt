@@ -120,14 +120,10 @@ class AppointDetailActivity : BaseActivity() {
         //전 페이지에서 하나의 약속정보 가져옴
         appointmentData = intent.getSerializableExtra("appointmentData") as AppointmentData
 
-
-
         startLatLng = LatLng(appointmentData.startLatitude, appointmentData.startLongitude)
         endLatLng = LatLng(appointmentData.latitude, appointmentData.longitude)
 
         getAppointmentDetailFromServer()
-
-
         /*Log.d("문제 지도 LatLng","${appointmentData.startLatitude}, ${appointmentData.startLongitude}")*/
 
         binding.titleTxt.text = appointmentData.title
@@ -135,9 +131,7 @@ class AppointDetailActivity : BaseActivity() {
         backIcon.visibility = View.VISIBLE
         messageIcon.visibility = View.VISIBLE
 
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //@@@@@@@@@@@@@@@@@@@@@@@@@@지도객체@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
             ?: MapFragment.newInstance().also {
@@ -148,7 +142,6 @@ class AppointDetailActivity : BaseActivity() {
         mapFragment.getMapAsync {
             //지도 로딩이 끝난후 얻어낸 온전한 지도 객체 변수화
             naverMap = it
-
             //val coord = LatLng(listLatLng[0].latitude,listLatLng[0].longitude)
             val coord = LatLng(appointmentData.latitude, appointmentData.longitude)
             val cameraPosition = CameraPosition(coord, 12.0)
