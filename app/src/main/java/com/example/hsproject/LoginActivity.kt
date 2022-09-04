@@ -183,7 +183,17 @@ class LoginActivity : BaseActivity() {
                 }
             }
         } else {
-            UserApiClient.instance.loginWithKakaoAccount(mContext, callback = callback)
+            //카카오 계정으로 로그인
+            //UserApiClient.instance.loginWithKakaoAccount(mContext, callback = callback)
+            UserApiClient.instance.loginWithKakaoAccount(mContext){token, error ->
+                if (error != null) {
+                    Log.e(TAG, "로그인 실패", error)
+                }
+                else if (token != null) {
+                    Log.i(TAG, "로그인 성공 ${token.accessToken}")
+                    getKakaoUserInfo()
+                }
+            }
         }
     }
 
